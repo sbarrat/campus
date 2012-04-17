@@ -1,0 +1,45 @@
+
+
+/* ===== Primary Styles ========================================================
+   Author: Ruben Lacasa 
+   ========================================================================== */
+
+.jcrop img {max-width: none;}
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+#map_canvas {
+    height: 450px;
+    margin-bottom: 1em;
+}
+#logo {
+    margin-top: 8px;
+    float: right;
+}
+input.error {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #b94a48;
+}
+.theme-default #myCarousel {
+    margin:20px auto 60px 20px;
+    width:480px; /* Make sure your images are the same size */
+    height:360px; /* Make sure your images are the same size */
+}
+#left-but, #right-but{
+    font-weight:bold;
+    font-size:1em;
+}
+
+
+
+
+
+
+
+
+
+
+

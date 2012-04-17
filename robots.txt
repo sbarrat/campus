@@ -1,0 +1,10 @@
+# www.robotstxt.org/
+# http://code.google.com/web/controlcrawlindex/
+
+User-agent: *
+#Quitar al finalizar el desarrollo
+Disallow: /img/
+Disallow: /inc/
+Disallow: /server/
+Disallow: /js/
+Disallow: /database/
