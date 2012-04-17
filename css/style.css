@@ -32,6 +32,11 @@ input.error {
     font-weight:bold;
     font-size:1em;
 }
+.totalInscripcion, #totalInscripcion {
+	font-size:2em;
+    font-weight:bold;
+    margin-top:0.5em;
+}
 
 
 

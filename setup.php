@@ -1,6 +1,42 @@
 <?php
 require_once 'inc/Consulta.php';
  $consulta = new Consulta('Mysql');
+//  $sql = "INSERT INTO `cuponescampus` (
+// `id` ,
+// `cupon` ,
+// `valor` ,
+// `descripcion` ,
+// `campus` ,
+// `total` ,
+// `fecha`
+// )
+// VALUES (
+// NULL , 'SANGREGORIO', '30', 'Cupon especial para los pertenecientes al club San gregorio', 'football', '30', NULL
+// );";
+//  $consulta->consulta($sql);
+ $sql = "Select * from cuponescampus";
+ $consulta->consulta($sql);
+ 
+//  $sql = "INSERT INTO `cuponescampus` 
+//  (`id`, `cupon`, `valor`, `descripcion`, `campus`, `total`, `fecha`) 
+//  VALUES (NULL, \'SANGREGORIO\', \'30\', 
+//  \'Cupon especial para los pertenecientes al club San gregorio\', \'football\', \'30\', NULL);";
+//  $consulta->consulta($sql);
+//  $sql = "CREATE TABLE IF NOT EXISTS `cuponescampus` (
+//   `id` int(11) NOT NULL AUTO_INCREMENT,
+//   `cupon` varchar(255) NOT NULL,
+//   `descripcion` varchar(255) NOT NULL,
+//   `campus` varchar(255) NOT NULL,
+//   `total` int(11) DEFAULT NULL,
+//   `fecha` date DEFAULT NULL,
+//   PRIMARY KEY (`id`)
+// ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
+//  $consulta->consulta($sql);
+//  $sql = "ALTER TABLE `cuponescampus` ADD `valor` INT NOT NULL AFTER `cupon` ";
+//  $consulta->consulta($sql);
+ echo "<pre>";
+  var_dump($consulta->resultados());
+  echo "</pre>";
 //  $sql = "
 // INSERT INTO `paradasbus` (`ruta`, `sentido`, `numeroParada`, `nombreParada`, `campus`) VALUES
 // ('1', 'Ida', 1, '08:15 - Avda. Cataluña ( Plaza Mozart)', 'football'),
@@ -52,15 +88,15 @@ require_once 'inc/Consulta.php';
 //  ";
  //$sql = "ALTER TABLE  `paradasbus` CHANGE  `ruta`  `ruta` SET(  '1',  '2',  '3' ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL";
  //$consulta->consulta($sql);
- $sql = "Select * from paradasbus";
+ //$sql = "Select * from paradasbus";
 //  $sql = "UPDATE paradasbus SET campus =  'english'";
 // $sql = 'ALTER TABLE  `inscripcionesEnglish` ADD  `webReferencia` VARCHAR( 255 ) NULL';
 // $sql = 'ALTER TABLE  `inscripcionesEnglish` ADD  `conocido` VARCHAR( 255 ) NULL';
 // $sql = 'ALTER TABLE  `inscripcionesEnglish` ADD  `localizador` VARCHAR( 255 ) NULL';
- $consulta->consulta($sql);
- echo "<pre>";
- var_dump($consulta->resultados());
- echo "</pre>";
+ 
+//  echo "<pre>";
+//  var_dump($consulta->resultados());
+//  echo "</pre>";
 /**
  * Creamos la base de datos de paradasBus
  * @var unknown_type

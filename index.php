@@ -480,7 +480,9 @@ $consulta = new Consulta('Mysql');
     
 <!-- FORMULARIO DE INSCRIPCION 
 ============================ -->
-     <form id='formularioInscripcion' method='post' action='inscripcion.php' enctype="multipart/form-data">
+<!--      <form id='formularioInscripcion' method='post' action='inscripcion.php' enctype="multipart/form-data"> -->
+          <form id='formularioInscripcion' method='post' action='postTest.php' enctype="multipart/form-data">
+     
         <div >
             <section>
                 <div class='span12' id='inscripcion'>
@@ -608,13 +610,11 @@ $consulta = new Consulta('Mysql');
                             <em>La fotografia se redimensionara a 150px de ancho. Formatos:jpeg,jpg,png,bmp,gif</em>
                             </label>
                             <div class="controls">
-                            	<input type='button' id='upload' value='Seleccionar Fotografia'>
+                            	<input type='button' id='upload' class='btn btn-info' value='Seleccionar Fotografia'>
 								<input type='hidden' id='imgOri' name='imgOri'>
 								<input type='hidden' id='imgNew' name='imgNew' class='requiered' name="fotoParticipante">
 								<div id='dialog'></div>
 								<div id='foto'></div>
-                            	<!--  <input type="hidden" name="MAX_FILE_SIZE" value="300000" />-->
-                                <!--  <input class="input-file" name="fotoParticipante" id="fotoParticipante" type="file" >-->
                             </div>
                         </div>
                         <div class="control-group">
@@ -698,7 +698,6 @@ $consulta = new Consulta('Mysql');
                             <label>Correo Electronico:</label> 
                             <input type="text" name='emailMadre' class="span4" placeholder="Email">
                         </div>
-                    
                 </div>
                 
                 
@@ -723,13 +722,27 @@ $consulta = new Consulta('Mysql');
                         <div class="alert alert-info">
                             <h4>Servicio de Guarderia para hermanos de 3 a 6 años</h4>
                             <label class="checkbox"> 
-                                <input type="checkbox" id="3semana" name="semana3Campus" value="Si">
+                                <input type="checkbox" id="guarderia" name="guarderia" value="Si">
                                 Marcar para solicitar en el servicio de guarderia
                             </label>
                         </div>
                     </div>
-                    
-                    
+                    <!-- Muestra la seccion del codigo promocional -->
+                    <div class='span12'>
+                    	<div class='alert alert-info'>
+                    		<h4>Codigo Promocional</h4>
+                    		<p><em>*Si dispone de codigo promocional escribalo aqui</em></p>
+                    		<input type='text' name='codigoDescuento' placeholder='Codigo Promocional' />
+                    		<input type='button' class='btn btn-success' id='aplicarDescuento' value='Aplicar Descuento' />
+                    	</div>
+                    </div>
+                    <!-- Muestra el total de la inscripción segun lo que se ha contratado -->
+                    <div class='span12'>
+                    	<div class='alert alert-success'>
+                    		<p><span class='totalInscripcion'>Total Inscripción:</span><span id='totalInscripcion'>369€</span></p>
+                    	</div>
+                    </div>
+                    <!-- Seccion de la seleccion de talla de la equipacion -->
                     <div class='span12'>
                     	<header>
                     	<h3>Equipación</h3>
@@ -760,7 +773,7 @@ $consulta = new Consulta('Mysql');
                     		<input id='tallas' type='button' class='btn btn-info' value='Ver guia de Tallas'>
                     	</div>
                     </div>
-                    
+                    <!-- Seccion de la seleccion de rutas de autobus -->
                     <div class='span12'>
                         <header>
                         <h3>Servicio De Autobus</h3>
