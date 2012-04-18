@@ -335,7 +335,7 @@ $consulta = new Consulta('Mysql');
                         Villanueva de Gallego
                         </em></p>
                         <p>
-                        <a id='verRuta1' class="btn btn-info" data-toggle="collapse"
+                        <a id='verRuta1' class="btn btn-info verRuta" data-toggle="collapse"
                         data-target="#ruta1">Ver Ruta 1 Detallada &raquo;</a>
                         </p>
                     </header>
@@ -368,7 +368,7 @@ $consulta = new Consulta('Mysql');
                         <p><em>Cmo las Torres - Juan Pablo Bonet - Mariano Barbasán
                          - Tomas Bretón - Avda Navarra - Plz Europa</em>
                         <p>
-                        <a id='verRuta2' class="btn btn-info" data-toggle="collapse"
+                        <a id='verRuta2' class="btn btn-info verRuta" data-toggle="collapse"
                         data-target="#ruta2">Ver Ruta 2 Detallada &raquo;</a>
                         </p>
                     </header>
@@ -401,7 +401,7 @@ $consulta = new Consulta('Mysql');
                         <p><em>Pso Pamplona - Gomez Laguna - Tomas Anzano - 
                         Ronda Oliver - Torres de San Lamberto</em>
                         <p>
-                        <a id='verRuta3' class="btn btn-info" data-toggle="collapse"
+                        <a id='verRuta3' class="btn btn-info verRuta" data-toggle="collapse"
                         data-target="#ruta3">Ver Ruta 3 Detallada &raquo;</a>
                         </p>
                     </header>
@@ -732,8 +732,9 @@ $consulta = new Consulta('Mysql');
                     	<div class='alert alert-info'>
                     		<h4>Codigo Promocional</h4>
                     		<p><em>*Si dispone de codigo promocional escribalo aqui</em></p>
-                    		<input type='text' name='codigoDescuento' placeholder='Codigo Promocional' />
+                    		<input type='text' id='codigoDescuento' name='codigoDescuento' placeholder='Codigo Promocional' />
                     		<input type='button' class='btn btn-success' id='aplicarDescuento' value='Aplicar Descuento' />
+                    		<span id='mensajeDescuento'></span>
                     	</div>
                     </div>
                     <!-- Muestra el total de la inscripción segun lo que se ha contratado -->
@@ -983,177 +984,12 @@ $consulta = new Consulta('Mysql');
  <script src="js/script.js"></script>
 <!-- FIN SCRIPTS GENERICOS --> 
 <script>
-$(window).load(function() {
-	$("#myCarousel").CloudCarousel({			
-				reflHeight: 46,
-				reflGap:2,
-				titleBox: $("#title-text"),
-				altBox: $("#alt-text"),
-				buttonLeft: $("#left-but"),
-				buttonRight: $("#right-but"),
-				yRadius:80,
-				xRadius:350,
-				xPos: 480,
-				yPos: 40,
-				speed:0.15,
-				minScale:0.25
-	});
-    $("a[rel^='prettyPhoto']").prettyPhoto();
-});
-
-$('document').ready(
-	function() {
-		// Activamos los tooltips
-	   	$('.mensaje').tooltip();
-		// Ocultamos el boton aceptar - Modificar para el back
-	   	$('#botonAceptar').hide();
-		// Configuramos el datepicker de la fecha de nacimiento
-	   	$('#fechaParticipante').datepicker({
-			firstDay: 1,
-			dateFormat: 'dd/mm/yy',
-			dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
-			monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],		    
-			monthNamesShort:['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
-			yearRange: '-17:+0',
-			changeMonth: true,
-			changeYear: true 
-			});
-	   	// Inicializamos los mensajes del validador
-	   	jQuery.validator.messages.required = "";
-	   	// Validador de campos
-		$("#formularioInscripcion").validate({		   
-			invalidHandler: function(e, validator) {
-				var errors = validator.numberOfInvalids();
-				if (errors) {
-					var message = errors == 1
-			    		? 'Falta por rellenar 1 campo obligatorio. Por favor, revise los campos marcados con *'
-			    		: 'Faltan por rellenar ' + errors + ' campos obligatorios. Por favor, revise los campos marcados con *';
-			    	$("div.error span").html(message);
-			    	$("div.error").show();
-				} else {
-					$("div.error").hide();
-				}
-			},
-			onkeyup: false,       
-			messages: {           
-				email: {
-			    	required: " ",
-			        email: "Por favor introduce una direccion de correo valida, ejemplo: you@yourdomain.com",
-			        condiciones: "Debe aceptar las condiciones del English Camp para poder Inscribirse"
-			    }
-			},
-		});
-			  
-		// Inicializamos el mapa		  
-		
-		// Lanzamos la funcion
-		
-	});
-// Fin del ready
-function initialize() {
-	var latlng = new google.maps.LatLng(41.758420, -0.833491);
-	var myOptions = {
-						zoom : 14,
-						center : latlng,
-						mapTypeId : google.maps.MapTypeId.ROADMAP
-					};
-	var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
-	map.setCenter(latlng);
-	var marker = new google.maps.Marker({
-									map : map,
-									position : latlng,
-									title : 'Campus Football and English 2012 - Enseñalia'
-									});
-	var infoWindow = new google.maps.InfoWindow;
-	google.maps.event.addListener(marker,'click',function() {
-									latlng = marker.getPosition();
-									infoWindow
-										.setContent('<h5>Campus Football and English 2012 </h5>'
-															+ 'Calle de Rigoberta Menchú - 50830 - Villanueva de Gállego')
-										.setOptions({ 'maxWidth' : 100 })
-										.open(map, marker);
-									});
-	google.maps.event.addListener(map, 'click',function() { infoWindow.close(); });
-}
-
-$('#verInstalaciones').click(function(){
-	initialize();
-});
- // Muestra el boton de aceptar si se marcan las condiciones
- $('#condiciones').click(function(){
-	 if($("#condiciones").is(':checked')) {  
-         $('#botonAceptar').show('blind'); 
-     } else {  
-         $('#botonAceptar').hide('blind');  
-     }  
- });		
-// Carga el listado de ruta de ida segun la seleccion
- $("input[name=rutaIda]").click(function(){
-	 $.post('inc/handler.php',{rutaIda:this.value},function(data){
-		if( data ) {
-		  	$("#nombreParadaIda").html(data);
-		}
-	 }).ajaxStart(function(){ $('#nombreParadaIda').html('Cargando Datos Ruta');});
-	 
- });
- // Carga el listado de ruta de vuelta segun la seleccion
- $("input[name=rutaVuelta]").click(function(){
-	 $.post('inc/handler.php',{rutaVuelta:this.value},function(data){
-		if ( data ) {
-		 	$("#nombreParadaVuelta").html(data);
-		}
-	 });
- });
- //Muestra la Ruta 1 al hacer clic en mostrar
- $("#verRuta1").click(function(){
-	$.post('inc/handler.php',{ruta:1},function(data){
-		$('#detalleRuta1').html(data);
-	});
- });
- // Muestra la Ruta 2 al hacer clic en mostar
- $("#verRuta2").click(function(){
-	$.post('inc/handler.php',{ruta:2},function(data){
-		$('#detalleRuta2').html(data);
-	});
- });
-//Muestra la Ruta 3 al hacer clic en mostar
- $("#verRuta3").click(function(){
-	$.post('inc/handler.php',{ruta:3},function(data){
-		$('#detalleRuta3').html(data);
-	});
- });
- // Ventana de tallas
- $('#tallas').click(function(){
-		$('#dialog').html('<img src="img/tallas.png" alt="tallas" width="640px"/>');
-		$('#dialog').dialog({
-			title: 'Guia de Tallas',
-			minWidth: 640
-		});
-	});
- // Cuadro de dialogo para la seleccion y edicion de la fotografia
- $('#upload').click(function(){
-		$.get('uploader.php',function(data){
-			$('#dialog').html( data );
-		});
-		$('#dialog').dialog({
-			title: 'Seleccion y Edici&oacute;n de Fotografia',
-			minWidth: 800,
-			minHeight: 600
-		});
- });
-// Emails amigos
- $('.masAmigos').click(function(){
-	console.log('Mas amigos');
-		var numero = parseInt($('#totalEmails').val()) + 1;
-	$('#totalEmails').val( numero );
-	var data = "<p><label class='inline'>Introduce Email:</label><input class='control-label' type='text' name='amigos["+numero+"]' /></p>";
-	$('#emailsAmigos').append(data);
- });
- 
+	$( window ).load( miCarousel );
+	$('document').ready( complementosIniciales );
 		// 	var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
 		// 	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
 		// 	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
 		// 	s.parentNode.insertBefore(g,s)}(document,'script'));
-	</script>
+</script>
 </body>
 </html>

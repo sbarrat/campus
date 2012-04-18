@@ -19,6 +19,9 @@ $campus = 'football';
 $sql = null;
 $rutaIda = false;
 $rutaVuelta = false;
+$precioBase = 369;
+$precioGuarderia = 120;
+$mensaje = false;
 /**
  * Consulta de seleccion de las lineas segun la opcion marcada en el radio button
  */
@@ -43,18 +46,42 @@ if ( isset( $_POST['ruta'] ) ) {
 	AND campus LIKE '".$campus."' order by numeroParada";
 }
 /**
+ * Consulta de codigo de descuento
+ */
+if ( isset( $_POST['descuento'] ) ) {
+	$cupon = filter_input( INPUT_POST, 'descuento', FILTER_SANITIZE_STRING );
+	$sql = "SELECT * FROM cuponescampus WHERE cupon LIKE '".$cupon."' 
+	AND campus LIKE '".$campus."'";
+}
+/**
  * Ejecutamos las consultas y devolvemos los resultados
  */
 if ( !is_null( $sql ) ) {
 	$consulta = new Consulta('Mysql');
 	$consulta->consulta( $sql );
+	/**
+	 * Se ha consultado el descuento
+	 */
+	if ( isset( $_POST['descuento'] ) ) {
+		$resultados = $consulta->resultados();
+		if ( count( $resultados ) == 1 ) {
+			$precio = $precioBase - ( $precioBase * ( $resultados[0]['valor'] / 100 ) );
+			$mensaje = number_format( round( $precio, 2 ), 2, ',', '.' )."&euro;"; 
+		} 
+	}
+	/**
+	 * Se ha consultado o bien la ruta de ida o la de vuelta
+	 */
 	if ( isset($_POST['rutaIda']) || isset($_POST['rutaVuelta'] ) ) {
  		foreach ( $consulta->resultados() as $resultado ) {
-			echo "<option value='".$resultado['numeroParada']."'>".$resultado['numeroParada']." - ".$resultado['nombreParada']."</option>";
+			$mensaje .= "<option value='".$resultado['numeroParada']."'>" . 
+				$resultado['numeroParada'] ." - ". $resultado['nombreParada']."</option>";
 		}
 	}
+	/**
+	 * Se ha consultado la ruta
+	 */
 	if ( isset( $_POST['ruta'] ) ) {
-		
 		foreach( $consulta->resultados() as $resultado ) {
 			if ( $resultado['sentido'] == 'Ida' ) {
 				$ida[$resultado['numeroParada']] = $resultado['nombreParada'];
@@ -65,13 +92,13 @@ if ( !is_null( $sql ) ) {
 		}
 		//Devolvemos la tabla html
 		for ( $i=1; $i <= count( $ida ); $i++ ) {
-			echo "<tr>";
-			echo "<td>".$i."</td>";
-			echo "<td>".$ida[$i]."</td>";
-			echo "<td>".$vuelta[$i]."</td>";
-		    echo "</tr>";
+			$mensaje .= "<tr>";
+			$mensaje .= "<td>".$i."</td>";
+			$mensaje .= "<td>".$ida[$i]."</td>";
+			$mensaje .= "<td>".$vuelta[$i]."</td>";
+		    $mensaje .= "</tr>";
 		}
 	}
-} else {
-	echo false;
 }
+echo $mensaje;
+
