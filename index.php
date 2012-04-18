@@ -521,7 +521,7 @@ $consulta = new Consulta('Mysql');
                             </div>
                         </div>
                         <label>*Fecha de Nacimiento:</label> 
-                        <input type="date" id='fechaParticipante' name='fechaParticipante' class="span2 required" placeholder="dd/mm/aaaa">
+                        <input type="date" id='fechaParticipante' name='fechaParticipante' class="span2 required campoFecha" placeholder="dd/mm/aaaa">
                         <label>*Dirección:</label> 
                         <input type="text" name='direccionParticipante' class="span4 required" placeholder="Direccion del Participante">
                         <label>*Codigo Postal:</label> 
@@ -700,7 +700,7 @@ $consulta = new Consulta('Mysql');
                         </div>
                 </div>
                 
-                
+<!-- SECCION DE LAS OPCIONES DEL CAMPAMENTO  -->                
                     <div class='span12'>
                     <header>
                         <h3>Opciones Football &amp; English Camp 2012</h3>
@@ -713,25 +713,64 @@ $consulta = new Consulta('Mysql');
                         <div class='alert alert-info'>
                             <h4>Football &amp; English Camp 2012 - Del 2 al 13 De Julio</h4>
                             <label class="checkbox"> 
-                                <input type="checkbox" id="1semana" name="semana1Campus" value="Si" checked>
-                                Marcar inscribirse en el Campus
+                                <input type="checkbox" id="semanaCampus" name="semanaCampus" readonly value="Si" checked>
+                                Inscripción al Football &amp; English Camp 2012 - 369 &euro;
                             </label>
                         </div>
                     </div>
                     <div class='span6'>      
                         <div class="alert alert-info">
                             <h4>Servicio de Guarderia para hermanos de 3 a 6 años</h4>
+       
                             <label class="checkbox"> 
                                 <input type="checkbox" id="guarderia" name="guarderia" value="Si">
-                                Marcar para solicitar en el servicio de guarderia
+                                Servicio de Guarderia para hermanos - 120 &euro;
                             </label>
                         </div>
+                        <!-- Datos del hermano en la guarderia -->
+                        <div id='datosHermano' class='well'>
+                        	<h4>Datos del Hermano/a</h4>
+                        	<div class='alert alert-info'>
+                        		<p><em>* En caso de necesitar guarderia para mas de un hermano contactar con nosotros</em></p>
+                        	</div>
+                        	<label>*Nombre Hermano/a:</label> 
+                        	<input type="text" name='nombreHermano' class="span4" placeholder="Nombre del/la Hermano/a">
+                        	<label>*Apellidos:</label> 
+                        	<input type="text" name='apellidosHermano' class="span4" placeholder="Apellidos del/la Hermano/a">
+                        	<div class="control-group">
+                            	<label class="control-label" for="optionsCheckbox">*Sexo:</label>
+                            	<div class="controls">
+                                	<label class="radio inline"> 
+                                		<input type="radio" id="sexo" name="sexoHermano" value="masculino">
+                                			Masculino
+                               	 	</label> 
+                                	<label class="radio inline"> 
+                                		<input type="radio" id="sexo" name="sexoHermano" value="femenino">
+                                		Femenino
+                                	</label>
+                            	</div>
+                        	</div>
+                        	<label>*Fecha de Nacimiento Hermano/a:</label> 
+                        	<input type="date" id='fechaNacimientoHermano' name='fechaNacimientoHermano' 
+                        	class="span2 campoFecha" placeholder="dd/mm/aaaa">
+                        	<div class="control-group">
+                            <label class="control-label" for="observacionesHermano">Observaciones:</label>
+                            <div class="controls">
+                                <textarea class="input-xlarge" id="comentarios"
+                                class='mensaje' 
+                                name='observacionesHermano' rows="5" 
+                                placeholder='Indique si el hermano necesita algun cuidado especial, tratamiento, dieta, o cualquier otra observacion que considere necesaria'
+                            	title="Indique si el hermano necesita algun cuidado especial, tratamiento, dieta, o cualquier otra observacion que considere necesaria"></textarea>
+                            </div>
+                        </div>
+                        </div> <!-- Fin Datos Hermano -->
                     </div>
                     <!-- Muestra la seccion del codigo promocional -->
                     <div class='span12'>
                     	<div class='alert alert-info'>
                     		<h4>Codigo Promocional</h4>
-                    		<p><em>*Si dispone de codigo promocional escribalo aqui</em></p>
+                    		<p><em>*Si dispone de codigo promocional escribalo aqui. El codigo promocional solo se aplica
+                    		al precio de la Inscripción del Campus</em></p>
                     		<input type='text' id='codigoDescuento' name='codigoDescuento' placeholder='Codigo Promocional' />
                     		<input type='button' class='btn btn-success' id='aplicarDescuento' value='Aplicar Descuento' />
                     		<span id='mensajeDescuento'></span>

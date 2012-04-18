@@ -63,11 +63,23 @@ if ( !is_null( $sql ) ) {
 	 * Se ha consultado el descuento
 	 */
 	if ( isset( $_POST['descuento'] ) ) {
+		$codigo = 0;
+		$precio = $precioBase;
 		$resultados = $consulta->resultados();
 		if ( count( $resultados ) == 1 ) {
-			$precio = $precioBase - ( $precioBase * ( $resultados[0]['valor'] / 100 ) );
-			$mensaje = number_format( round( $precio, 2 ), 2, ',', '.' )."&euro;"; 
+			$precio -=  $precioBase * ( $resultados[0]['valor'] / 100 );
+			$codigo = 1;
+		}
+		if ( strlen( $_POST['descuento'] ) == 0 ) { // no hemos especificado codigo
+			$codigo = 2;
 		} 
+		if ( isset( $_POST['guarderia'] ) ) {
+			if ( $_POST['guarderia'] ) {
+				$precio += $precioGuarderia;
+			}
+		}
+		$precio = number_format( round( $precio, 2 ), 2, ',', '.' )."&euro;";
+		$mensaje = json_encode( array('precio' => $precio, 'codigo' => $codigo ) );
 	}
 	/**
 	 * Se ha consultado o bien la ruta de ida o la de vuelta

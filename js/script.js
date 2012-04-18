@@ -32,8 +32,10 @@ var complementosIniciales = function() {
 	$('.mensaje').tooltip();
 	// Ocultamos el boton aceptar - Modificar para el back
 	$('#botonAceptar').hide();
+	// Ocultamos el div del hermano pequeño
+	$('#datosHermano').hide();
 	// Configuramos el datepicker de la fecha de nacimiento
-	$('#fechaParticipante').datepicker({
+	$('.campoFecha').datepicker({
 		firstDay: 1,
 		dateFormat: 'dd/mm/yy',
 		dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
@@ -176,7 +178,7 @@ $('#upload').click(function(){
 /**
  * Agrega mas emails de amigos
  */
- $('.masAmigos').click(function(){
+$('.masAmigos').click(function(){
 	var numero = parseInt($('#totalEmails').val()) + 1;
 	$('#totalEmails').val( numero );
 	var data = "<p><label class='inline'>Introduce Email:</label>" 
@@ -184,19 +186,52 @@ $('#upload').click(function(){
 	$('#emailsAmigos').append(data);
 });
 /**
- * Chequea el codigo de descuento
+ * Function que recalcula el total
+ */
+var recalculaTotal = function( codigoDescuento, conGuarderia ) {
+	$.post('inc/handler.php',{descuento:codigoDescuento, guarderia:conGuarderia},function( data ){
+		$('#mensajeDescuento')
+			.html('')
+			.removeClass('alert')
+			.removeClass('alert-error')
+			.removeClass('alert-success');
+		$('#totalInscripcion').html( data.precio );
+		if ( data.codigo ) {
+			if ( data.codigo == 1 ) {
+				$('#mensajeDescuento')
+					.html('Codigo Correcto')
+					.addClass('alert')
+					.addClass('alert-success');
+			}
+		} else {
+				$('#mensajeDescuento')
+					.html('Codigo Incorrecto')
+					.addClass('alert')
+					.addClass('alert-error');
+		}
+	},"json"); 
+};
+ /**
+ * Calcula el precio al aplicar el codigo de descuento
  */
 $('#aplicarDescuento').click(function(){
-	$.post('inc/handler.php',{descuento:$('#codigoDescuento').val()},function(data){
-		if( data ) {
-			$('#totalInscripcion').html( data );
-			$('#mensajeDescuento').html('Codigo Correcto');
-			$('#mensajeDescuento').removeClass('alert-error');
-			$('#mensajeDescuento').addClass('alert').addClass('alert-success');
-		} else {
-			$('#mensajeDescuento').html('Codigo Incorrecto');
-			$('#mensajeDescuento').removeClass('alert-success');
-			$('#mensajeDescuento').addClass('alert').addClass('alert-error');
-		}
-	});
+	var conGuarderia = 0;
+	if ( $('#guarderia').is(':checked') ) {
+		conGuarderia = 1;
+	}
+	recalculaTotal( $('#codigoDescuento').val(), conGuarderia );
+});
+/**
+* Calcula el precio con la guarderia activada
+*/
+$('#guarderia').click(function(){
+	var conGuarderia = 0;
+	if( $("#guarderia").is(':checked') ) {
+		conGuarderia = 1;
+		$('#datosHermano').show();
+		recalculaTotal( $('#codigoDescuento').val(), conGuarderia );
+	} else {
+		$('#datosHermano').hide();
+		recalculaTotal( $('#codigoDescuento').val(), conGuarderia );
+	}  
 });
