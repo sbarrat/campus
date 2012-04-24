@@ -7,6 +7,8 @@ class Consulta {
 	private $_query;
 	private $_result;
 	private $_localizador = false;
+	private $_cuponAmigo = false;
+	private $_urlsPromo = array('http://www.marianistas.net');
 	function __construct( $type = 'Mysql' ) {
 		if ( $type == 'Sqlite' ) {
 			$this->_handle = databaseSqlite::connect();
@@ -27,6 +29,18 @@ class Consulta {
 	 */
 	function resultados() {
 		return $this->_query->fetchAll( PDO::FETCH_ASSOC );
+	}
+	/**
+	 * Chequea si la url esta en la lista de promos
+	 * 
+	 * @param string $url
+	 */
+	function urlPromo( $url ) {
+		if ( in_array( $url, $this->_urlsPromo ) ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	/**
 	 * Genera el identificador unico de inscripcion lo agrega a la base
@@ -61,6 +75,24 @@ class Consulta {
 		return $aleat;
 		
 	}
+	/**
+	 * Genera el cupon de amigo
+	 * @return string
+	 */
+	function cuponAmigos() {
+		$check = false;
+		while( !$check ) {
+			$this->_cuponAmigo = $this->generaLocalizador();
+			$sql = "SELECT * from cuponescampus where cupon like :cuponAmigo";
+			$this->_query = $this->_handle->prepare( $sql );
+			$this->_query->execute(array(':cuponAmigo' => $this->_cuponAmigo ) );
+			if ( $this->_query->rowCount() == 0 ) {
+				$check = true;
+			}
+		}
+		return $this->_cuponAmigo;
+	}
+	
 	function localizadorReserva() {
 		
 		$check = false;
@@ -108,6 +140,22 @@ class Consulta {
 			echo $e->getFile()."<br/>";
 			echo $e->getTraceAsString()."<br/>";
 		}
+	}
+	/**
+	 * Devuelve los campos con los valores por defecto de la tabla inscripciones
+	 * 
+	 * @return array $datos
+	 */
+	function camposTabla() {
+		$sql = 'DESCRIBE inscripcionesEnglish';
+		$this->consulta( $sql );
+		$datos = array();
+		foreach( $this->resultados() as $campos ) {
+			if ( $campos['Field'] != 'id' ) {
+				$datos[$campos['Field']] = $campos['Default'];
+			}
+		}
+		return $datos;
 	}
 	function agregarDatos( $vars ) {
 		$fecha = explode("/",$vars[':fechaParticipante']);

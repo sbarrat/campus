@@ -37,6 +37,9 @@ input.error {
     font-weight:bold;
     margin-top:0.5em;
 }
+label.error {
+	color: #b94a48;
+}
 
 
 

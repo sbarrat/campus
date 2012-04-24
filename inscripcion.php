@@ -15,68 +15,79 @@ require_once 'inc/Procesa.php';
 /**
  * Inicializamos variables;
  */
-$datos = array('nombreParticipante'=>'', 'apellidosParticipante'=>'',
-		'sexoParticipante'=>'', 'fechaParticipante'=>'',
-		'direccionParticipante'=>'', 'cpParticipante'=>'',
-		'ciudadParticipante'=>'', 'tel1Participante'=>'',
-		'tel2Participante'=>'', 'emailParticipante'=>'',
-		'colegioParticipante'=>'', 'cursoParticipante'=>'',
-		'hermanosParticipante'=>'', 'inglesParticipante'=>'',
-		'fotoParticipante'=>'', 'tipoFotoParticipante'=>'',
-		'comentariosParticipante'=>'','nombreContacto'=>'',
-		'apellidosContacto'=>'',
-		'movilContacto'=>'', 'alergiasMedicos'=>'',
-		'condicionesMedicos'=>'', 'tratamientoMedicos'=>'',
-		'DietaMedicos'=>'', 'nombrePadre'=>'',
-		'apellidosPadre'=>'', 'movilPadre'=>'',
-		'emailPadre'=>'', 'nombreMadre'=>'',
-		'apellidosMadre'=>'', 'movilMadre'=>'',
-		'emailMadre'=>'', 'semana1Campus'=>'',
-		'semana2Campus'=>'', 'semana3Campus'=>'',
-		'semana4Campus'=>'', 'servicioAutobus'=>'',
-		'rutaIda'=>'', 'paradaIda'=>'',
-		'rutaVuelta'=>'', 'paradaVuelta'=>'',
-		'condicionesAceptadas'=>'', 'conocido'=>'',
-		'localizador'=>'');
+$consulta = new Consulta();
+$procesa = new Procesa();
+$datos = $consulta->camposTabla();
+$listaNegra = array('amigos');
 $datosProcesados = array();
-$marianistas = false;
+$urlPromo = false;
 $datosPresentacion = false;
+$emailsValidosAmigos = 0;
+$amigos = "";
 
 /**
- * Checkeamos si el registro se ha producido desde Marianistas
+ * Chequeamos si el registro se ha producido desde alguna url de Promo
  */
-if ( isset($_SESSION['referer'] ) && ($_SESSION['referer'] == "http://www.marianistas.net" )) {
-	$marianistas = true;
+if ( isset($_SESSION['referer'] ) && ( $consulta->urlPromo( $_SESSION['referer'] ) ) ) {
+	$urlPromo = true;
 }
-// Primera validacion Se han marcado las condiciones
+/**
+ * Chequeamos si se han marcado las condiciones del campus
+ */
 if ( isset( $_POST['condicionesAceptadas'] ) && $_POST['condicionesAceptadas'] == 'Si' ) {
-	// Segunda Validacion se han marcado semanas
+	/**
+	 * Chequeamos se se ha marcado alguna semana del campus
+	 */
 	if ( isset( $_POST['semana1Campus'] ) || isset( $_POST['semana2Campus'] )
 			|| isset( $_POST['semana3Campus'] ) || isset( $_POST['semana4Campus'] ) ) {
-		//Chequeamos si se ha subido la foto y la convertimos para ponerla
-		// en la base de datos
-		$procesa = new Procesa();
-		if ( is_file($procesa->pathFiles.$_POST['imgOri']) && is_file($procesa->pathFiles.$_POST['imgNew'])) {
+		/**
+		 * Chequeamos si se ha subido la foto y la convertimos para ponerla en
+		 * la base de datos y para mostrarla en el email y en el resultado final
+		 */
+		if ( is_file( $procesa->pathFiles.$_POST['imgOri'] ) && is_file( $procesa->pathFiles.$_POST['imgNew'] ) ) {
 			
 			$ficheroFoto = realpath( $procesa->pathFiles.$_POST['imgNew'] );
 			$fotoAnterior = realpath( $procesa->pathFiles.$_POST['imgOri'] );
 			$fotoThumb = realpath( $procesa->pathThum.$_POST['imgOri'] );
 			
-			$tipoFoto = getimagesize($ficheroFoto);
-			//$tipoFotoParticipante = $_FILES['fotoParticipante']['type'];
+			$tipoFoto = getimagesize( $ficheroFoto );
 			$tipoFotoParticipante = $tipoFoto['mime'];
 			$fotoParticipante = $procesa->procesaFoto( $ficheroFoto, $tipoFotoParticipante );
 			/**
 			 * Habilitar en version final para no dejar fotografias en el servidor
 			 */
-// 			unlink( $fotoAnterior );
-// 			unlink( $fotoThumb );
-// 			unlink( $ficheroFoto );
+			unlink( $fotoAnterior );
+			unlink( $fotoThumb );
+			unlink( $ficheroFoto );
 		} else {
 			$class = 'error';
 			$mensaje = " - No hay ningun fichero subido - <br/>";
 			die("La sesion ha finalizado. Vuelva a intentarlo <a href='javascript:history.back()'>Volver</a>");
 		}
+		
+		
+		/**
+		 * Chequeamos el codigo de descuento
+		 */
+		if ( isset( $_POST['codigoDescuento'] ) && $_POST['codigoDescuento'] != '' ) {
+			// TODO Consultamos en la base de datos si es correcto el codigo y
+			// lo aplicamos oficialmente
+		} else if ( isset( $_POST['amigos'] ) && count( $_POST['amigos'] ) >= 4 ) {
+			// Si hemos mandado el email a 4 o mas amigos
+			$datosProcesados[':cupon'] =  $consulta->cuponAmigos();
+			for ( $i = 0; $i < count( $_POST['amigos'] ); $i++ ) {
+				if ( true === ( $email = filter_input( INPUT_POST, 'amigos', FILTER_VALIDATE_EMAIL ) ) ) {
+					$amigos .= $email.";";
+					// Enviamos email al amigo
+					echo "Enviamos emails a estos amigos con el siguiente codigo";
+					/**
+					 * todo Enviar el email a los amigos con el codigo de Amigo
+					 */
+				}
+			}
+			$datosProcesados[':amigos'] = $amigos;
+		}
+	
 		/**
 		 * Tratamos los datos para insertarlos en la base de datos
 		 */
@@ -93,7 +104,7 @@ if ( isset( $_POST['condicionesAceptadas'] ) && $_POST['condicionesAceptadas'] =
 		/**
 		 * Agregamos los datos a la base de Datos local
 		 */
-		$consulta = new Consulta();
+		
 		$datosProcesados[':localizador'] = $consulta->localizadorReserva();
 		$consulta->agregarDatos( $datosProcesados );
 		$idInscripcion = $consulta->generaIdInscripcion();
@@ -102,37 +113,42 @@ if ( isset( $_POST['condicionesAceptadas'] ) && $_POST['condicionesAceptadas'] =
 		$_SESSION['photoId'] = $idInscripcion;
 		/**
 		 * Mandamos los datos por SOAP al servidor remoto
+		 * todo habilitar en version final
 		 */
-		$cliente = new Cliente();
-		$enviado = $cliente->enviaSoap( $datosProcesados );
-		if ( $enviado ) {
-			$class='success';
-			$mensaje='Inscripcion Realizada con exito';
-		} else {
-			$class='error';
-			$mensaje='No se ha podido realizar la inscripcion. Intentelo
-			mas tarde. Perdon por las molestias';
-		}
+// 		$cliente = new Cliente();
+// 		$enviado = $cliente->enviaSoap( $datosProcesados );
+// 		if ( $enviado ) {
+// 			$class='success';
+// 			$mensaje='Inscripcion Realizada con exito';
+// 		} else {
+// 			$class='error';
+// 			$mensaje='No se ha podido realizar la inscripcion. Intentelo
+// 			mas tarde. Perdon por las molestias';
+// 		}
 		/**
 		 * Mandamos el email. Deberiamos mandarlo tanto al cliente como notificacion propia
+		 * todo habilitar en version final
 		 */
-		$enviadoEmail = $cliente->enviaMail( $datosProcesados );
-		if ( $enviadoEmail ) {
-			$mensaje .= ' - Se ha enviado un email con los datos de la inscripcion';
-		} else {
-			$mensaje .= ' - No ha sido posible enviar el email. Intentelo mas tarde';
-		}
+// 		$enviadoEmail = $cliente->enviaMail( $datosProcesados );
+// 		if ( $enviadoEmail ) {
+// 			$mensaje .= ' - Se ha enviado un email con los datos de la inscripcion';
+// 		} else {
+// 			$mensaje .= ' - No ha sido posible enviar el email. Intentelo mas tarde';
+// 		}
 		
 		$datosPresentacion = $procesa->datosFormateados( 'web', $datosProcesados );
 		
 	} else {
 		$class='error';
-		$mensaje = "Debe marcar alguna semana de campus <a href='javascript(history.back())'>Volver</a>";
+		$mensaje = "Debe marcar alguna opción de campus <a href='javascript(history.back())'>Volver</a>";
 	}
 } else {
 	$class='error';
 	$mensaje = "No se han marcado las condiciones";
 }
+/**
+ * Fin del codigo PHP inicio del HTML de presentación de resultados
+ */
 ?>
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -223,7 +239,8 @@ input.error {
 		<?php echo $mensaje; ?>
 	</div>
 	<div class='span12'>
-<?php  if ( $class=='success'){
+<?php  
+if ( $class=='success'){
 	$datos = $consulta->verDato();
 	echo $datosPresentacion;
 // 	foreach( $datos as $dato ) {

@@ -39,8 +39,8 @@ $consulta = new Consulta('Mysql');
   <div class="navbar-inner">
    <div class="container">
     <a class="btn btn-navbar" data-toggle="collapse"
-     data-target=".nav-collapse"> <span class="icon-bar"></span> <span
-     class="icon-bar"></span> <span class="icon-bar"></span>
+     data-target=".nav-collapse"> <span class="icon-bar"></span> 
+     <span class="icon-bar"></span> <span class="icon-bar"></span>
     </a> <a class="brand" href="#">Football &amp; English Camp 2012</a>
     <div class="nav-collapse">
      <ul class="nav">
@@ -686,7 +686,7 @@ $consulta = new Consulta('Mysql');
                             <label>Móvil:</label>
                             <input type="text" name='movilPadre' class="span4" placeholder="Numero Movíl"> 
                             <label>Correo Electronico:</label> 
-                            <input type="text" name='emailPadre' class="span4" placeholder="Email">
+                            <input type="text" name='emailPadre' class="span4 email" placeholder="Email">
          
                             <h4>Datos de la Madre / Tutora Legal</h4>
                             <label>Nombre:</label> 
@@ -696,7 +696,7 @@ $consulta = new Consulta('Mysql');
                             <label>Móvil:</label>
                             <input type="text" name='movilMadre' class="span4" placeholder="Numero Movíl"> 
                             <label>Correo Electronico:</label> 
-                            <input type="text" name='emailMadre' class="span4" placeholder="Email">
+                            <input type="text" name='emailMadre' class="span4 email" placeholder="Email">
                         </div>
                 </div>
                 
@@ -713,7 +713,10 @@ $consulta = new Consulta('Mysql');
                         <div class='alert alert-info'>
                             <h4>Football &amp; English Camp 2012 - Del 2 al 13 De Julio</h4>
                             <label class="checkbox"> 
-                                <input type="checkbox" id="semanaCampus" name="semanaCampus" readonly value="Si" checked>
+                                <input type="checkbox" id="semana1Campus" name="semana1Campus" readonly value="Si" checked>
+                                <input type="hidden" id="semana2Campus" name="semana2Campus" readonly value="No" checked>
+                                <input type="hidden" id="semana3Campus" name="semana3Campus" readonly value="No" checked>
+                                <input type="hidden" id="semana4Campus" name="semana4Campus" readonly value="No" checked>
                                 Inscripción al Football &amp; English Camp 2012 - 369 &euro;
                             </label>
                         </div>
@@ -771,8 +774,11 @@ $consulta = new Consulta('Mysql');
                     		<h4>Codigo Promocional</h4>
                     		<p><em>*Si dispone de codigo promocional escribalo aqui. El codigo promocional solo se aplica
                     		al precio de la Inscripción del Campus</em></p>
+                    		<p><em>*Si el codigo es de la promocion amigos este se aplicara cuando se alcanze el numero minimo para
+                    		la promoción. En el momento de alcanzarse se comunicara</em></p>
                     		<input type='text' id='codigoDescuento' name='codigoDescuento' placeholder='Codigo Promocional' />
-                    		<input type='button' class='btn btn-success' id='aplicarDescuento' value='Aplicar Descuento' />
+                    		<input type='button' class='btn btn-success' id='aplicarDescuento' value='Aplicar Codigo' />
+                    		<input type='button' class='btn btn-danger' id='noaplicarDescuento' value='Quitar Codigo' />
                     		<span id='mensajeDescuento'></span>
                     	</div>
                     </div>
@@ -817,6 +823,7 @@ $consulta = new Consulta('Mysql');
                     <div class='span12'>
                         <header>
                         <h3>Servicio De Autobus</h3>
+                        <input type='hidden' name='servicioAutobus' value='Si' />
                         <p>
                         <em>Debe especificar la ruta de ida
                             y la ruta de vuelta asi como la parada tanto de ida como de vuelta</em>
@@ -869,18 +876,28 @@ $consulta = new Consulta('Mysql');
                         <select id='nombreParadaVuelta' name='paradaVuelta' class='span5'></select>
                         </div>
                     </div>
-                <div class='span12'>
+                <div class='span12' id='planAmigos'>
                 	<header>
-                		<h3>Invita a tus amigos y conseguid un 10% de descuento</h3>
+                		<h3>Invita a 4 o mas de tus amigos y conseguid y precio especial</h3>
                 		<p><em>
-                			* Si 5 o mas de tus amigos se inscriben en el campus conseguireis un 10% de descuento cada uno
+                			* Si 4 o mas de tus amigos se inscriben en el campus conseguireis un descuento de 20€ en 
+                			vuestra inscripción
                 		</em></p>
                 		<p><em>
                 			* Los descuentos no son acumulables
                 		</em></p>
                 	</header>
                 	<div id='emailsAmigos' class='well'>
-                		<input type='hidden' id='totalEmails' value='0' />
+                		<input type='hidden' id='totalEmails' value='4' />
+                		<p><label class='inline'>Introduzca el email de un amigo:</label>
+                		<input class='control-label email' type='text' name='amigos[0]' /></p>
+                		<p><label class='inline'>Introduzca el email de un amigo:</label>
+                		<input class='control-label email' type='text' name='amigos[1]' /></p>
+                		<p><label class='inline'>Introduzca el email de un amigo:</label>
+                		<input class='control-label email' type='text' name='amigos[2]' /></p>
+                		<p><label class='inline'>Introduzca el email de un amigo:</label>
+                		<input class='control-label email' type='text' name='amigos[3]' /></p>
+                		<p><em>Pulse el botón tantas veces como emails de amigos si quiere invitar a mas amigos</em></p>
                 		<input type='button' class='btn btn-info masAmigos' value='+ Agregar Email amigo' /> 
                 	</div>
                 </div>    

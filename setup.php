@@ -1,6 +1,27 @@
 <?php
 require_once 'inc/Consulta.php';
  $consulta = new Consulta('Mysql');
+//  $sql = "ALTER TABLE `inscripcionesEnglish` CHANGE `cupon` `codigoDescuento` 
+//  VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL ";
+//  $consulta->consulta( $sql );
+//  $sql = "ALTER TABLE `inscripcionesEnglish` ADD `guarderia` SET( 'Si', 'No' ) NOT NULL ,
+// ADD `nombreHermano` VARCHAR( 255 ) NULL ,
+// ADD `apellidosHermano` VARCHAR( 255 ) NULL ,
+// ADD `sexoHermano` SET( 'Masculino', 'Femenino' ) NULL ,
+// ADD `fechanacimientoHermano` DATE NULL ,
+// ADD `observacionesHermano` TEXT NULL ,
+// ADD `amigos` TEXT NULL ";
+//  $consulta->consulta( $sql );
+//  $sql = "ALTER TABLE `inscripcionesEnglish` ADD `talla` VARCHAR( 255 ) NULL ";
+//  $consulta->consulta( $sql );
+ $sql = "Describe `inscripcionesEnglish`";
+ $consulta->consulta( $sql );
+ 
+//  $sql = "ALTER TABLE `inscripcionesEnglish` ADD `cupon` VARCHAR( 255 ) NOT NULL ,
+// ADD INDEX ( `cupon` ) ";
+//  $sql = "ALTER TABLE `cuponescampus` ADD `creador` VARCHAR( 255 ) NOT NULL ,
+// ADD `destinatarios` TEXT NOT NULL";
+//  $consulta->consulta($sql);
 //  $sql = "INSERT INTO `cuponescampus` (
 // `id` ,
 // `cupon` ,
@@ -13,9 +34,9 @@ require_once 'inc/Consulta.php';
 // VALUES (
 // NULL , 'SANGREGORIO', '30', 'Cupon especial para los pertenecientes al club San gregorio', 'football', '30', NULL
 // );";
-//  $consulta->consulta($sql);
- $sql = "Select * from cuponescampus";
- $consulta->consulta($sql);
+ 
+//  $sql = "Select * from inscripcionesEnglish";
+
  
 //  $sql = "INSERT INTO `cuponescampus` 
 //  (`id`, `cupon`, `valor`, `descripcion`, `campus`, `total`, `fecha`) 

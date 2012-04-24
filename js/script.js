@@ -47,6 +47,10 @@ var complementosIniciales = function() {
 	});
 	
 	// Inicializamos los mensajes del validador
+	jQuery.extend(jQuery.validator.messages, {
+	    required: "Este campo es obligatorio.",
+	    email: "Introduzca una dirección de correo valida."
+	});
 	jQuery.validator.messages.required = "";
 	// Validador de campos
 	$("#formularioInscripcion").validate({		   
@@ -71,6 +75,8 @@ var complementosIniciales = function() {
 			}
 		},
 	});
+	
+
 };
 
 /**
@@ -127,7 +133,7 @@ $("input[name=rutaIda]").click(function(){
 		if( data ) {
 		  	$("#nombreParadaIda").html(data);
 		}
-	 }).ajaxStart(function(){ $('#nombreParadaIda').html('Cargando Datos Ruta');}); 
+	 }); 
 });
 
 /**
@@ -181,7 +187,7 @@ $('#upload').click(function(){
 $('.masAmigos').click(function(){
 	var numero = parseInt($('#totalEmails').val()) + 1;
 	$('#totalEmails').val( numero );
-	var data = "<p><label class='inline'>Introduce Email:</label>" 
+	var data = "<p><label class='inline'>Introduzca Email:</label>" 
 		+ "<input class='control-label' type='text' name='amigos["+numero+"]' /></p>";
 	$('#emailsAmigos').append(data);
 });
@@ -202,12 +208,14 @@ var recalculaTotal = function( codigoDescuento, conGuarderia ) {
 					.html('Codigo Correcto')
 					.addClass('alert')
 					.addClass('alert-success');
+				$('#planAmigos').hide();
 			}
 		} else {
 				$('#mensajeDescuento')
 					.html('Codigo Incorrecto')
 					.addClass('alert')
 					.addClass('alert-error');
+				$('#planAmigos').show();
 		}
 	},"json"); 
 };
@@ -216,6 +224,15 @@ var recalculaTotal = function( codigoDescuento, conGuarderia ) {
  */
 $('#aplicarDescuento').click(function(){
 	var conGuarderia = 0;
+	if ( $('#guarderia').is(':checked') ) {
+		conGuarderia = 1;
+	}
+	recalculaTotal( $('#codigoDescuento').val(), conGuarderia );
+});
+$('#noaplicarDescuento').click(function(){
+	var conGuarderia = 0;
+	$('#codigoDescuento').val('');
+	$('#planAmigos').show();
 	if ( $('#guarderia').is(':checked') ) {
 		conGuarderia = 1;
 	}
