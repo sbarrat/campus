@@ -480,9 +480,7 @@ $consulta = new Consulta('Mysql');
     
 <!-- FORMULARIO DE INSCRIPCION 
 ============================ -->
-<!--      <form id='formularioInscripcion' method='post' action='inscripcion.php' enctype="multipart/form-data"> -->
-          <form id='formularioInscripcion' method='post' action='postTest.php' enctype="multipart/form-data">
-     
+     <form id='formularioInscripcion' method='post' action='inscripcion.php' enctype="multipart/form-data">
         <div >
             <section>
                 <div class='span12' id='inscripcion'>
@@ -503,6 +501,7 @@ $consulta = new Consulta('Mysql');
                             </em>
                     </header>
                     <div class='well'>
+                    	<input type='hidden' name='campus' value='football' readonly />
                         <label>*Nombre:</label> 
                         <input type="text" name='nombreParticipante' class="span4 required" placeholder="Nombre del Participante">
                         <label>*Apellidos:</label> 
@@ -754,7 +753,7 @@ $consulta = new Consulta('Mysql');
                             	</div>
                         	</div>
                         	<label>*Fecha de Nacimiento Hermano/a:</label> 
-                        	<input type="date" id='fechaNacimientoHermano' name='fechaNacimientoHermano' 
+                        	<input type="date" id='fechanacimientoHermano' name='fechanacimientoHermano' 
                         	class="span2 campoFecha" placeholder="dd/mm/aaaa">
                         	<div class="control-group">
                             <label class="control-label" for="observacionesHermano">Observaciones:</label>
@@ -897,7 +896,8 @@ $consulta = new Consulta('Mysql');
                 		<input class='control-label email' type='text' name='amigos[2]' /></p>
                 		<p><label class='inline'>Introduzca el email de un amigo:</label>
                 		<input class='control-label email' type='text' name='amigos[3]' /></p>
-                		<p><em>Pulse el botón tantas veces como emails de amigos si quiere invitar a mas amigos</em></p>
+                		<p><em>Si quieres invitar a mas amigos has clic en el botón <strong>Agregar Email Amigo</strong>
+                		 tantas veces como emails de amigos quieras agregar</em></p>
                 		<input type='button' class='btn btn-info masAmigos' value='+ Agregar Email amigo' /> 
                 	</div>
                 </div>    

@@ -19,8 +19,6 @@ $campus = 'football';
 $sql = null;
 $rutaIda = false;
 $rutaVuelta = false;
-$precioBase = 369;
-$precioGuarderia = 120;
 $mensaje = false;
 /**
  * Consulta de seleccion de las lineas segun la opcion marcada en el radio button
@@ -59,6 +57,8 @@ if ( isset( $_POST['descuento'] ) ) {
 if ( !is_null( $sql ) ) {
 	$consulta = new Consulta('Mysql');
 	$consulta->consulta( $sql );
+	$precioBase = $consulta->precios[$campus]['base'];
+	$precioGuarderia = $consulta->precios[$campus]['guarderia'];
 	/**
 	 * Se ha consultado el descuento
 	 */

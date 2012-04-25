@@ -1,7 +1,7 @@
 <?php 
 session_start();
 /**
- * SOlo para depuracion
+ * Solo para depuracion
  */
 ini_set('display_errors', 1);
 ini_set('html_errors', 1);
@@ -18,17 +18,23 @@ require_once 'inc/Procesa.php';
 $consulta = new Consulta();
 $procesa = new Procesa();
 $datos = $consulta->camposTabla();
-$listaNegra = array('amigos');
+/**
+ * Datos tratados en la funcion y no enviados por el formulario
+ * @var array $listaNegra
+ */
+$listaNegra = array('amigos','fotoParticipante','tipoFotoParticipante',
+		'webReferencia','codigoDescuento');
 $datosProcesados = array();
 $urlPromo = false;
 $datosPresentacion = false;
 $emailsValidosAmigos = 0;
 $amigos = "";
+$cuponValido = false;
 
 /**
  * Chequeamos si el registro se ha producido desde alguna url de Promo
  */
-if ( isset($_SESSION['referer'] ) && ( $consulta->urlPromo( $_SESSION['referer'] ) ) ) {
+if ( isset($_SESSION['referer'] ) && ( $consulta->urlPromo( $_POST['campus'], $_SESSION['referer'] ) ) ) {
 	$urlPromo = true;
 }
 /**
@@ -49,82 +55,80 @@ if ( isset( $_POST['condicionesAceptadas'] ) && $_POST['condicionesAceptadas'] =
 			$ficheroFoto = realpath( $procesa->pathFiles.$_POST['imgNew'] );
 			$fotoAnterior = realpath( $procesa->pathFiles.$_POST['imgOri'] );
 			$fotoThumb = realpath( $procesa->pathThum.$_POST['imgOri'] );
-			
+			/**
+			 * Almacenamos los datos de la foto
+			 */
 			$tipoFoto = getimagesize( $ficheroFoto );
 			$tipoFotoParticipante = $tipoFoto['mime'];
 			$fotoParticipante = $procesa->procesaFoto( $ficheroFoto, $tipoFotoParticipante );
+			$datosProcesados[':fotoParticipante'] = $fotoParticipante;
+			$datosProcesados[':tipoFotoParticipante'] = $tipoFotoParticipante;
 			/**
-			 * Habilitar en version final para no dejar fotografias en el servidor
+			 * Eliminamos las fotografias subidas
 			 */
 			unlink( $fotoAnterior );
 			unlink( $fotoThumb );
 			unlink( $ficheroFoto );
 		} else {
 			$class = 'error';
-			$mensaje = " - No hay ningun fichero subido - <br/>";
-			die("La sesion ha finalizado. Vuelva a intentarlo <a href='javascript:history.back()'>Volver</a>");
+			$mensaje = "<strong>Error:<strong> No ha adjuntado una foto del participante<br/>";
+			$mensaje .= "Tiene que adjuntar una foto del participante <a href='javascript:history.back()'>Volver</a>";
+			$datosProcesados[':fotoParticipante'] = null;
+			$datosProcesados[':tipoFotoParticipante'] = null;
 		}
-		
 		
 		/**
 		 * Chequeamos el codigo de descuento
 		 */
 		if ( isset( $_POST['codigoDescuento'] ) && $_POST['codigoDescuento'] != '' ) {
-			// TODO Consultamos en la base de datos si es correcto el codigo y
-			// lo aplicamos oficialmente
-		} else if ( isset( $_POST['amigos'] ) && count( $_POST['amigos'] ) >= 4 ) {
+			// El cliente ha escrito un cupon
+			$cuponValido = $consulta->cuponValido( $_POST['codigoDescuento'], $_POST['campus'] );
+		} else if ( isset( $_POST['amigos'] ) ) {
 			// Si hemos mandado el email a 4 o mas amigos
-			$datosProcesados[':cupon'] =  $consulta->cuponAmigos();
-			for ( $i = 0; $i < count( $_POST['amigos'] ); $i++ ) {
-				if ( true === ( $email = filter_input( INPUT_POST, 'amigos', FILTER_VALIDATE_EMAIL ) ) ) {
-					$amigos .= $email.";";
-					// Enviamos email al amigo
-					echo "Enviamos emails a estos amigos con el siguiente codigo";
-					/**
-					 * todo Enviar el email a los amigos con el codigo de Amigo
-					 */
-				}
-			}
-			$datosProcesados[':amigos'] = $amigos;
+			$datosCupon = 
+				$consulta->cuponAmigos( $_POST['campus'], $_POST['amigos'], $_POST['emailParticipante'] );
+			$datosProcesados[':codigoDescuento'] = $datosCupon['cupon'];
+			$datosProcesados[':amigos'] = $datosCupon['amigos'];
 		}
-	
+		
 		/**
 		 * Tratamos los datos para insertarlos en la base de datos
 		 */
 		foreach( $datos as $key => $dato ) {
-			if ( isset( $_POST[ $key ] ) ) {
+			if ( isset( $_POST[ $key ] ) && !in_array( $key, $listaNegra ) ) {
 				$datosProcesados[':'.$key] = $_POST[$key];
-			} else {
+			} else if( !in_array( $key, $listaNegra ) ) {
 				$datosProcesados[':'.$key] = '';
 			}
 		}
-		$datosProcesados[':fotoParticipante'] = $fotoParticipante;
-		$datosProcesados[':tipoFotoParticipante'] = $tipoFotoParticipante;
 		$datosProcesados[':webReferencia'] = $_SESSION['referer'];
+		$datosProcesados[':localizador'] = $consulta->localizadorReserva();
+		$datosProcesados[':idInscripcion'] = '';
+		
 		/**
 		 * Agregamos los datos a la base de Datos local
 		 */
-		
-		$datosProcesados[':localizador'] = $consulta->localizadorReserva();
 		$consulta->agregarDatos( $datosProcesados );
+		$datosProcesados['origen'] = $_SERVER['SERVER_ADDR'];
 		$idInscripcion = $consulta->generaIdInscripcion();
 		$datosProcesados[':idInscripcion'] = $idInscripcion;
-		$datosProcesados['origen'] = $_SERVER['SERVER_ADDR'];
 		$_SESSION['photoId'] = $idInscripcion;
+		$datosProcesados[':fechaCreacion'] = $consulta->fechaCreacion();
+
 		/**
 		 * Mandamos los datos por SOAP al servidor remoto
 		 * todo habilitar en version final
 		 */
-// 		$cliente = new Cliente();
-// 		$enviado = $cliente->enviaSoap( $datosProcesados );
-// 		if ( $enviado ) {
-// 			$class='success';
-// 			$mensaje='Inscripcion Realizada con exito';
-// 		} else {
-// 			$class='error';
-// 			$mensaje='No se ha podido realizar la inscripcion. Intentelo
-// 			mas tarde. Perdon por las molestias';
-// 		}
+		$cliente = new Cliente();
+		$enviado = $cliente->enviaSoap( $datosProcesados );
+		if ( $enviado ) {
+			$class='success';
+			$mensaje='Inscripcion Realizada con exito';
+		} else {
+			$class='error';
+			$mensaje='No se ha podido realizar la inscripcion. Intentelo
+			mas tarde. Perdon por las molestias';
+		}
 		/**
 		 * Mandamos el email. Deberiamos mandarlo tanto al cliente como notificacion propia
 		 * todo habilitar en version final
@@ -135,8 +139,8 @@ if ( isset( $_POST['condicionesAceptadas'] ) && $_POST['condicionesAceptadas'] =
 // 		} else {
 // 			$mensaje .= ' - No ha sido posible enviar el email. Intentelo mas tarde';
 // 		}
-		
-		$datosPresentacion = $procesa->datosFormateados( 'web', $datosProcesados );
+		//var_dump( $datosProcesados );
+		$datosPresentacion = $procesa->datosFormateados( 'web', $datosProcesados, $urlPromo );
 		
 	} else {
 		$class='error';
