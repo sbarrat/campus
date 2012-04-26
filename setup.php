@@ -17,8 +17,8 @@ require_once 'inc/Consulta.php';
 //  $sql = "ALTER TABLE `inscripcionesEnglish` CHANGE `nombreParticipante` `nombreParticipante` 
 //  VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Nombre'";
 //  $consulta->consulta( $sql );
- $sql = "Describe `inscripcionesEnglish`";
- $consulta->consulta( $sql );
+//  $sql = "TRUNCATE `inscripcionesEnglish`";
+//  $consulta->consulta( $sql );
  
 //  $sql = "ALTER TABLE `inscripcionesEnglish` ADD `cupon` VARCHAR( 255 ) NOT NULL ,
 // ADD INDEX ( `cupon` ) ";

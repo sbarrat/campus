@@ -9,7 +9,7 @@ $consulta = new Consulta('Mysql');
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js" lang="en">
+<html class="no-js" lang="es">
 <!--<![endif]-->
 <head>
 <meta charset="utf-8">
@@ -74,7 +74,7 @@ $consulta = new Consulta('Mysql');
             <header class='page-header'>
             <!-- Quitar en version final -->
                 <div class='alert alert-success'>
-                <h2>ABIERTO PLAZO INSCRIPCIÓN FOOTBALL &amp; ENGLISH CAMP 2012</h2>
+                <p>ABIERTO PLAZO INSCRIPCIÓN FOOTBALL &amp; ENGLISH CAMP 2012</p>
                 </div>
            <!-- Fin aviso -->     
                 <img src='img/football.png' title='Football & English Camp 2012' />
@@ -519,7 +519,7 @@ $consulta = new Consulta('Mysql');
                             </div>
                         </div>
                         <label>*Fecha de Nacimiento:</label> 
-                        <input type="date" id='fechaParticipante' name='fechaParticipante' class="span2 required campoFecha" placeholder="dd/mm/aaaa">
+                        <input type="text" id='fechaParticipante' name='fechaParticipante' class="span2 required campoFecha" placeholder="dd/mm/aaaa">
                         <label>*Dirección:</label> 
                         <input type="text" name='direccionParticipante' class="span4 required" placeholder="Direccion del Participante">
                         <label>*Codigo Postal:</label> 
@@ -711,10 +711,10 @@ $consulta = new Consulta('Mysql');
                         <div class='alert alert-info'>
                             <h4>Football &amp; English Camp 2012 - Del 2 al 13 De Julio</h4>
                             <label class="checkbox"> 
-                                <input type="checkbox" id="semana1Campus" name="semana1Campus" readonly value="Si" checked>
-                                <input type="hidden" id="semana2Campus" name="semana2Campus" readonly value="No" checked>
-                                <input type="hidden" id="semana3Campus" name="semana3Campus" readonly value="No" checked>
-                                <input type="hidden" id="semana4Campus" name="semana4Campus" readonly value="No" checked>
+                                <input type="checkbox" id="semana1Campus" name="semana1Campus" readonly="readonly" value="Si" checked>
+                                <input type="hidden" id="semana2Campus" name="semana2Campus" readonly="readonly" value="No" checked>
+                                <input type="hidden" id="semana3Campus" name="semana3Campus" readonly="readonly" value="No" checked>
+                                <input type="hidden" id="semana4Campus" name="semana4Campus" readonly="readonly" value="No" checked>
                                 Inscripción al Football &amp; English Camp 2012 - 369 &euro;
                             </label>
                         </div>
@@ -752,7 +752,7 @@ $consulta = new Consulta('Mysql');
                             	</div>
                         	</div>
                         	<label>*Fecha de Nacimiento Hermano/a:</label> 
-                        	<input type="date" id='fechanacimientoHermano' name='fechanacimientoHermano' 
+                        	<input type="text" id='fechanacimientoHermano' name='fechanacimientoHermano' 
                         	class="span2 campoFecha" placeholder="dd/mm/aaaa">
                         	<div class="control-group">
                             <label class="control-label" for="observacionesHermano">Observaciones:</label>
@@ -831,7 +831,7 @@ $consulta = new Consulta('Mysql');
                     <div class='span6 rutas'>
                         <div class="control-group alert alert-info">
                         <header>
-                            <h5>Ruta Ida:</h5>
+                            <h5>*Ruta Ida:</h5>
                         </header>
                         <div class="controls">
                             <label class="checkbox inline"> 
@@ -848,13 +848,13 @@ $consulta = new Consulta('Mysql');
                             </label>
                         </div>
                         <label>Parada:</label> 
-                        <select id='nombreParadaIda' name='paradaIda' class='span5'></select>
+                        <select id='nombreParadaIda' name='paradaIda' class='span5 required'></select>
                         </div>
                     </div>
                     <div class='span6 rutas'>
                         <div class="control-group alert alert-info">
                         <header>
-                            <h5>Ruta Vuelta:</h5>
+                            <h5>*Ruta Vuelta:</h5>
                         </header>
                         <div class="controls">
                             <label class="checkbox inline"> 
@@ -871,7 +871,7 @@ $consulta = new Consulta('Mysql');
                             </label>
                         </div>
                         <label>Parada:</label>
-                        <select id='nombreParadaVuelta' name='paradaVuelta' class='span5'></select>
+                        <select id='nombreParadaVuelta' name='paradaVuelta' class='span5 required'></select>
                         </div>
                     </div>
                 <div class='span12' id='planAmigos'>
@@ -986,6 +986,7 @@ $consulta = new Consulta('Mysql');
                             <input type="checkbox" id="condiciones" name="condicionesAceptadas" value="Si" class='required'>
                             <strong>* Haciendo clic en esta casilla manifiesta que ha leido y acepta
                             las condiciones del Football &amp; English Camp 2012</strong>
+                            <strong>* Es importante que revise los campos marcados con * para comprobar que esta todo correcto</strong>
                         </label> 
                     </div>
                     <br/>

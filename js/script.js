@@ -30,6 +30,8 @@ var miCarousel = function() {
 var complementosIniciales = function() {
 	// Activamos los tooltips
 	$('.mensaje').tooltip();
+	$('#semana1Campus').attr( 'checked', true );
+	$('#semana1Campus').attr('disabled', 'disabled');
 	// Ocultamos el boton aceptar - Modificar para el back
 	$('#botonAceptar').hide();
 	// Ocultamos el div del hermano pequeño
@@ -49,7 +51,8 @@ var complementosIniciales = function() {
 	// Inicializamos los mensajes del validador
 	jQuery.extend(jQuery.validator.messages, {
 	    required: "Este campo es obligatorio.",
-	    email: "Introduzca una dirección de correo valida."
+	    email: "Introduzca una dirección de correo valida.",
+	    date: "Debe introducir una fecha valida"
 	});
 	jQuery.validator.messages.required = "";
 	// Validador de campos
@@ -113,12 +116,24 @@ var inicializaMapa = function() {
  * Se inicializa el mapa al hacer click en el boton ver Instalaciones
  */
 $('#verInstalaciones').click( inicializaMapa );
-
+var busMarcado = function(){
+	if ( 
+		( $("#ruta1Ida").is(':checked') || $("#ruta2Ida").is(':checked') || $("#ruta3Ida").is(':checked') ) 
+			&& 
+		( $("#ruta1Vuelta").is(':checked') || $("#ruta2Vuelta").is(':checked') || $("#ruta3Vuelta").is(':checked') ) ) {
+		
+		return true;
+	} else {
+		alert('Debe seleccionar las rutas de autobuses');
+		$("#condiciones").attr( 'checked', false );
+		return false;
+	}
+};
 /**
  * Muestra el boton o lo oculta de las condiciones del campus
  */
 $('#condiciones').click(function(){
-	 if($("#condiciones").is(':checked')) {  
+	 if( $("#condiciones").is(':checked') && ( busMarcado() ) ) {  
          $('#botonAceptar').show('blind'); 
      } else {  
          $('#botonAceptar').hide('blind');  

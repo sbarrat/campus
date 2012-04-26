@@ -6,6 +6,7 @@ session_start();
 ini_set('display_errors', 1);
 ini_set('html_errors', 1);
 error_reporting(E_ALL);
+
 /**
  * Ficheros obligatorios
  */
@@ -30,7 +31,6 @@ $datosPresentacion = false;
 $emailsValidosAmigos = 0;
 $amigos = "";
 $cuponValido = false;
-
 /**
  * Chequeamos si el registro se ha producido desde alguna url de Promo
  */
@@ -72,7 +72,7 @@ if ( isset( $_POST['condicionesAceptadas'] ) && $_POST['condicionesAceptadas'] =
 		} else {
 			$class = 'error';
 			$mensaje = "<strong>Error:<strong> No ha adjuntado una foto del participante<br/>";
-			$mensaje .= "Tiene que adjuntar una foto del participante <a href='javascript:history.back()'>Volver</a>";
+			$mensaje .= "Tiene que adjuntar una foto del participante <a href='#' onClick='history.go(-1)'><< Volver</a>";
 			$datosProcesados[':fotoParticipante'] = null;
 			$datosProcesados[':tipoFotoParticipante'] = null;
 		}
@@ -83,6 +83,10 @@ if ( isset( $_POST['condicionesAceptadas'] ) && $_POST['condicionesAceptadas'] =
 		if ( isset( $_POST['codigoDescuento'] ) && $_POST['codigoDescuento'] != '' ) {
 			// El cliente ha escrito un cupon
 			$cuponValido = $consulta->cuponValido( $_POST['codigoDescuento'], $_POST['campus'] );
+			if ( $cuponValido ) {
+				$datosProcesados[':codigoDescuento'] = $_POST['codigoDescuento'];
+				$datosProcesados[':amigos'] = '';
+			}
 		} else if ( isset( $_POST['amigos'] ) ) {
 			// Si hemos mandado el email a 4 o mas amigos
 			$datosCupon = 
@@ -150,7 +154,7 @@ if ( isset( $_POST['condicionesAceptadas'] ) && $_POST['condicionesAceptadas'] =
 		
 	} else {
 		$class='error';
-		$mensaje = "Debe marcar alguna opción de campus <a href='javascript(history.back())'>Volver</a>";
+		$mensaje = "Debe marcar alguna opción de campus <a href='#' onClick='history.go(-1)'><< Volver</a>";
 	}
 } else {
 	$class='error';
@@ -165,7 +169,7 @@ if ( isset( $_POST['condicionesAceptadas'] ) && $_POST['condicionesAceptadas'] =
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js" lang="en">
+<html class="no-js" lang="es">
 <!--<![endif]-->
 <head>
 <meta charset="utf-8">

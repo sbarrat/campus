@@ -17,7 +17,7 @@
 
 
 #En desarrollo, la oficial cambiar a index.html
-DirectoryIndex index.html
+DirectoryIndex index.php
 
 # ----------------------------------------------------------------------
 # Better website experience for IE users
