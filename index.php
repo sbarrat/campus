@@ -73,12 +73,11 @@ $consulta = new Consulta('Mysql');
         <section>
             <header class='page-header'>
             <!-- Quitar en version final -->
-                <div class='alert alert-error'>Pagina en Desarrollo -
-                    Los datos que aparecen no son definitivos y el formulario no esta habilitado
-                    <?php echo date('d/m/Y'); ?>
+                <div class='alert alert-success'>
+                <h2>ABIERTO PLAZO INSCRIPCIÓN FOOTBALL &amp; ENGLISH CAMP 2012</h2>
                 </div>
            <!-- Fin aviso -->     
-                <img src='img/football12.png' title='Football & English Camp 2012' />
+                <img src='img/football.png' title='Football & English Camp 2012' />
                 <hgroup>
                     <h1>FOOTBALL &amp; ENGLISH camp 2012</h1>
                     <h2>Campus deportivo para jóvenes</h2>

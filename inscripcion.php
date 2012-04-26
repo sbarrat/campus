@@ -130,16 +130,22 @@ if ( isset( $_POST['condicionesAceptadas'] ) && $_POST['condicionesAceptadas'] =
 			mas tarde. Perdon por las molestias';
 		}
 		/**
+		 * Invitamos a los amigos
+		 */
+		if ( $datosProcesados[':amigos'] != '' ) {
+			$cliente->invitaAmigos( $datosProcesados );
+		}
+		/**
 		 * Mandamos el email. Deberiamos mandarlo tanto al cliente como notificacion propia
 		 * todo habilitar en version final
 		 */
-// 		$enviadoEmail = $cliente->enviaMail( $datosProcesados );
-// 		if ( $enviadoEmail ) {
-// 			$mensaje .= ' - Se ha enviado un email con los datos de la inscripcion';
-// 		} else {
-// 			$mensaje .= ' - No ha sido posible enviar el email. Intentelo mas tarde';
-// 		}
-		//var_dump( $datosProcesados );
+		$enviadoEmail = $cliente->enviaMail( $datosProcesados, $urlPromo );
+		if ( $enviadoEmail ) {
+			$mensaje .= ' - Se ha enviado un email con los datos de la inscripcion';
+		} else {
+			$mensaje .= ' - No ha sido posible enviar el email. Intentelo mas tarde';
+		}
+		
 		$datosPresentacion = $procesa->datosFormateados( 'web', $datosProcesados, $urlPromo );
 		
 	} else {
@@ -247,16 +253,6 @@ input.error {
 if ( $class=='success'){
 	$datos = $consulta->verDato();
 	echo $datosPresentacion;
-// 	foreach( $datos as $dato ) {
-// 		foreach( $dato as $key => $valor ) {
-// 			if ( $key == 'id' ) {
-// 				$_SESSION['photoId'] = $valor;
-// 			}
-// 			if ( $key!='fotoParticipante' ) {
-// 				echo "<br/>".$key."=>".$valor;
-// 			}
-// 		}
-// 	}
 }
 
 ?>

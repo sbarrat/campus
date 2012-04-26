@@ -17,7 +17,7 @@
 
 
 #En desarrollo, la oficial cambiar a index.html
-DirectoryIndex 404.html
+DirectoryIndex index.html
 
 # ----------------------------------------------------------------------
 # Better website experience for IE users

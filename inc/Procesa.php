@@ -63,18 +63,20 @@ class Procesa {
 		//$bannedFields = array(':idInscripcion','')
 		$campus = "Football &amp English Camp 2012";
 		$paginaPago = "http://www.ensenalia.com/node/1086";
-		echo "<pre>";
-		var_dump( $datos );
-		echo "</pre>";
 		$html = "";
 		$print = "";
+		$pie = "<hr/>
+			<div><a href='http://www.ensenalia.com'>&copy;ensenalia.com - ".date('Y')."</a></div>";
 		if ( $dest == 'email' ) {
+			$cabezera = "<p><img src='http://www.ensenalia.com/camps/football/img/football.png' title='Football & English Camp 2012' /></p>";
 			$img ="<img src='http://www.ensenalia.com/camps/".$datos[':campus']."/foto.php?idInscripcion=".$datos[':idInscripcion']."'/>";
 		} else {
+			$cabezera = "";
 			$print = "<div class='span2 offset7'><a href='javascript:window.print()'>
 			<i class='icon-print'></i> Imprimir Inscripción</a></div>";
 			$img ="<img src='foto.php?idInscripcion=".$datos[':idInscripcion']."'>";
 		}
+		$html .= $cabezera;
 		$html .= $print;
 		$html .= "<div class='span8 offset1'>";
 		$html .= "<div class='well'>";
@@ -149,37 +151,40 @@ class Procesa {
 		/**
 		 * Chequear el codigo de promocion
 		 */
-		
+		$valorCodigo = $this->_consulta->valorCupon( $datos[':codigoDescuento'], $datos[':campus'] );
+		$precio -=  $precio * ( $valorCodigo / 100 );
 		if ( $datos[':guarderia'] == 'Si' ) {
 			$precio += $precioGuarderia;
 		}
-		if ( $urlPromo ) {
-			$precio -= $precioPrematricula;
-		}
-		
-		
-		
-		
+		$precioFinal = $precio - $precioPrematricula;
 		$html .= "</tbody>";
 		$html .= "</table>";
 		$html .= "</div>";
 		if ( !$urlPromo ) { // El pago de la prematricula no sale para los de marianistas
 		$html .="<div class='alert alert-success'>
 			<h3>Pago de la reserva de plaza</h3>
-			<p><em>La reserva de plaza se realiza mediante un primer pago de <strong>99€</strong> al inscribirse 
-			en el campus en nuestra web por tarjeta, paypal o transferencia.<br/>
+			<p>
+			La reserva de plaza se realiza mediante un primer pago de 
+			<strong>".$precioPrematricula."€</strong> al inscribirse 
+			en el campus en nuestra web por tarjeta, paypal o transferencia.</p>
+			
 			<p><strong>Puede realizar el pago de la reserva haciendo clic 
 			<a href='".$paginaPago."' target='_blank'>AQUI</a></strong></p>
+			
 			<h3>Pago resto del Importe</h3>
-			El resto del importe <strong>€</strong>se abonará por transferencia bancaria a la cuenta 
-			Caixa Penedés, c/c 2081 0600 16 3300000417, Beneficiario DX Computer, 
-			antes del 30 de Mayo de 2012.<br/>
-			En los pagos por transferencia deberá aparecer en el CONCEPTO:<br/>". 
-			"<strong>". $campus . " - Codigo Inscripción: " . $datos[':localizador'] . " -
+			<p>El segundo pago de un importe de <strong>".$precioFinal."€</strong>
+			se abonará por transferencia bancaria a la cuenta:</p> 
+			<p>Caixa Penedés, c/c 2081 0600 16 3300000417, Beneficiario DX Computer, 
+			antes del 30 de Mayo de 2012.</p>
+			
+			<p>En los pagos por transferencia deberá aparecer en el <strong>CONCEPTO:</strong></p>". 
+			"<p><strong>". $campus . " - Codigo Inscripción: " . $datos[':localizador'] . " -
 			".$datos[':nombreParticipante']."  ".$datos[':apellidosParticipante'] ." 
-			</strong><br/>  
-			Se deberá remitir copia del justificante de pago por e-mail a info@ensenalia.com o por fax al 976 225 015.</em></p>
-			</div>";
+			</strong></p>  
+			<p>Se deberá remitir copia del justificante de pago por e-mail a info@ensenalia.com o por fax al 976 225 015.</p>
+			</div>
+			
+			";
 		} else {
 			$html .="<div class='alert alert-success'>
 			La Inscripción al campus se ha realizado correctamente
@@ -188,6 +193,7 @@ class Procesa {
 		$html .="</div>
 		</div>";
 		$html .= $print;
+		$html .= $pie;
 		return $html;
 	}
 }

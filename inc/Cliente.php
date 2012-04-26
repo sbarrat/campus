@@ -6,6 +6,8 @@
  */
 require_once 'Procesa.php';
 class Cliente {
+	public $campus = "Football and English Camp 2012";
+	public $urlCampus = "http://www.ensenalia.com/camps/football/";
 	function enviaSoap( $vars ) {
 		$options = array(
 				'location' => 'http://query.ensenalia.com/soap/server.php',
@@ -24,7 +26,13 @@ class Cliente {
 			die();
 		}
 	}
-	function enviaMail( $vars ) {
+	/**
+	 * Envia el email con la confirmacion del registro al cliente y a la central
+	 * 
+	 * @param unknown_type $vars
+	 * @return boolean
+	 */
+	function enviaMail( $vars, $urlPromo ) {
 		$listaNegra = array(':fotoParticipante',':tipoFotoParticipante','MAX_FILE_SIZE', 'fotoParticipante','origen');
 		$mailDest = $vars[':emailParticipante'];
 		// To send HTML mail, the Content-type header must be set
@@ -33,23 +41,45 @@ class Cliente {
 		$headers .= 'Bcc: ruben@ensenalia.com' . "\r\n";
 		$headers .= 'Return-Path: ruben@ensenalia.com' . "\r\n";
 		// Additional headers
-		//$headers .= 'From: English Camp <englishcamp@ensenalia.com>' . "\r\n";
+		$headers .= 'From: '.$this->campus.' <camps@ensenalia.com>' . "\r\n";
 		$procesa = new Procesa();
-		$body = $procesa->datosFormateados( 'email', $vars );
-// 		$body = "<h1>Datos de la Inscripcion English Camp 2012</h1>";
-// 		foreach( $vars as $key => $var ) {
-// 			if ( !array_search($key, $listaNegra) ) {
-// 				if ( $key != ':fotoParticipante' ) {
-// 					$body.= substr($key, 1) .":".$var."<br/>";
-// 				}
-// 			}
-// 		}
-// 		$body.="<img src='http://www.ensenalia.com/camps/english/foto.php?idInscripcion=".$vars[':idInscripcion']."'/><br/>";
-		if ( mail($mailDest,'Inscripcion English Camp', $body, $headers ) ) {
+		$body = $procesa->datosFormateados( 'email', $vars, $urlPromo );
+
+		if ( mail($mailDest,'Inscripción '. $this->campus , $body, $headers ) ) {
 			return true;
 		} else {
 			return false;
+		}	
+	}
+	/**
+	 * Envia las invitaciones a los amigos
+	 * @param array $var
+	 * @return boolean
+	 */
+	function invitaAmigos( $var ) {
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+		//$headers .= 'Bcc: ' . $var[':amigos'] . "\r\n";
+		$headers .= 'Return-Path: camps@ensenalia.com' . "\r\n";
+		$body = "<p><img src='http://www.ensenalia.com/camps/football/img/football.png' title='Football & English Camp 2012' /></p>";
+		$body .= "<div><h1>Invitación al ".$this->campus."</h1></div>";
+		$body .= "<p>".$var[':nombreParticipante']." ".$var[':apellidosParticipante']." 
+		te a invitado a que le acompañes al 
+		<a href='".$this->urlCampus."'>".$this->campus."</a>
+		y si tu y otros 3 amigos o mas os apuntais 
+		con el siguiente codigo <strong>".$var[':codigoDescuento']."</strong> conseguieris
+		un descuento especial</p>";
+		$body .= "<hr/>
+		<div><a href='http://www.ensenalia.com'>&copy;ensenalia.com - ".date('Y')."</a></div>";
+		// Additional headers
+		$headers .= 'From: '.$this->campus.' <camps@ensenalia.com>' . "\r\n";
+		$mailsAmigos = explode( ';', $var[':amigos'] );
+		foreach ( $mailsAmigos as $mailDest ) {
+			if ( mail( $mailDest, 'Inscripción '.$this->campus, $body, $headers ) ) {
+				return true;
+			} else {
+				return false;
+			}
 		}
-		
 	}
 }
