@@ -61,6 +61,7 @@ class Cliente {
 		$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
 		//$headers .= 'Bcc: ' . $var[':amigos'] . "\r\n";
 		$headers .= 'Return-Path: camps@ensenalia.com' . "\r\n";
+		$subject = $var[':nombreParticipante']." ".$var[':apellidosParticipante']." te invita al ".$this->campus;
 		$body = "<p><img src='http://www.ensenalia.com/camps/football/img/football.png' title='Football & English Camp 2012' /></p>";
 		$body .= "<div><h1>Invitación al ".$this->campus."</h1></div>";
 		$body .= "<p>".$var[':nombreParticipante']." ".$var[':apellidosParticipante']." 
@@ -75,7 +76,7 @@ class Cliente {
 		$headers .= 'From: '.$this->campus.' <camps@ensenalia.com>' . "\r\n";
 		$mailsAmigos = explode( ';', $var[':amigos'] );
 		foreach ( $mailsAmigos as $mailDest ) {
-			if ( mail( $mailDest, 'Inscripción '.$this->campus, $body, $headers ) ) {
+			if ( mail( $mailDest, $subject , $body, $headers ) ) {
 				return true;
 			} else {
 				return false;
