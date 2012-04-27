@@ -111,7 +111,9 @@ if ( isset( $_POST['condicionesAceptadas'] ) && $_POST['condicionesAceptadas'] =
 		
 		/**
 		 * Agregamos los datos a la base de Datos local
+		 * @fixme no llega ni :codigoDescuento ni :amigos
 		 */
+		
 		$consulta->agregarDatos( $datosProcesados );
 		$datosProcesados['origen'] = $_SERVER['SERVER_ADDR'];
 		$idInscripcion = $consulta->generaIdInscripcion();

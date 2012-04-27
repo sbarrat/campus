@@ -174,9 +174,8 @@ class Consulta {
 	function cuponValido( $cupon, $campus ) {
 		$sql = 'SELECT * FROM cuponescampus 
 		WHERE cupon LIKE :cupon 
-		AND campus LIKE :campus 
-		AND total > 0';
-		$this->query = $this->_handle->prepare( $sql );
+		AND campus LIKE :campus';
+		$this->_query = $this->_handle->prepare( $sql );
 		$this->_query->execute( array(':cupon' => $cupon, ':campus' => $campus ) );
 		if ( $this->_query->rowCount() == 0 ) {
 			return false;
@@ -197,7 +196,8 @@ class Consulta {
 			WHERE cupon LIKE :cupon
 			AND campus LIKE :campus';
 			$this->_query = $this->_handle->prepare( $sql );
-			$this->_query->execute( array(':cupon' => $cupon, ':campus' => $campus ) );
+			$this->_query->execute( 
+					array(':total'=>$usos, ':cupon' => $cupon, ':campus' => $campus ) );
 			return true;
 		}
 	}

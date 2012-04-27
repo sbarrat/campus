@@ -156,7 +156,7 @@ class Procesa {
 		if ( $datos[':guarderia'] == 'Si' ) {
 			$precio += $precioGuarderia;
 		}
-		$precioFinal = $precio - $precioPrematricula;
+		$precioFinal = number_format( round( ($precio - $precioPrematricula), 2 ), 2, ',' ,'.' );
 		$html .= "</tbody>";
 		$html .= "</table>";
 		$html .= "</div>";

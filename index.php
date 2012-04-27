@@ -79,8 +79,6 @@ $consulta = new Consulta('Mysql');
            <!-- Fin aviso -->     
                 <img src='img/football.png' title='Football & English Camp 2012' />
                 <hgroup>
-                    <h1>FOOTBALL &amp; ENGLISH camp 2012</h1>
-                    <h2>Campus deportivo para jóvenes</h2>
                     <h3>Del 2 al 13 de Julio en Villanueva de Gállego</h3>
                     <h3>De 7 a 14 años</h3>
                 </hgroup>
@@ -985,7 +983,7 @@ $consulta = new Consulta('Mysql');
                         <label class="checkbox inline"> 
                             <input type="checkbox" id="condiciones" name="condicionesAceptadas" value="Si" class='required'>
                             <strong>* Haciendo clic en esta casilla manifiesta que ha leido y acepta
-                            las condiciones del Football &amp; English Camp 2012</strong>
+                            las condiciones del Football &amp; English Camp 2012</strong><br/>
                             <strong>* Es importante que revise los campos marcados con * para comprobar que esta todo correcto</strong>
                         </label> 
                     </div>
