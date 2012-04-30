@@ -1,8 +1,27 @@
-<?php 
+<?php
 require_once 'inc/Consulta.php';
 session_start();
-$_SESSION['referer'] = $_SERVER['HTTP_REFERER']; 
+if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
+$_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
+} else {
+	$_SESSION['referer'] = NULL;
+}
 $consulta = new Consulta('Mysql');
+/**
+ * Datos basicos de la pagina
+ * @var copyright
+ * @var title
+ * @var descripcion
+ * @var author
+ */ 
+$copyright = "&copy;www.ensenalia.com::".date('Y');
+$title = 'English Camp '.date('Y');
+$description = 'English Camp '.date('Y').' - Campamento de Inglés Urbano en Zaragoza';
+$author = "Ruben Lacasa <ruben@rubenlacasa.es>";
+$imgForm = 'img/summer.png';
+$fechasCampus = 'Del 25 de Junio al 20 de Julio';
+$edadCampus = 'Dirigido a Niños/as de 6 a 12 años';
+$campus = 'english';
 ?>
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -14,10 +33,10 @@ $consulta = new Consulta('Mysql');
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Football &amp; English Camp 2012 - &copy;www.ensenalia.com 2012</title>
+<title><?php echo $title." ".$copyright; ?></title>
 <meta name="description"
- content="Football & English Camp 2012 Campamento de Futból e Inglés para niños">
-<meta name="author" content="Ruben Lacasa">
+ content="<?php echo $description;?>">
+<meta name="author" content="<?php echo $author; ?>">
 <meta name="viewport" content="width=device-width">
 <!-- Estilos CSS Genericos -->
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
@@ -41,7 +60,7 @@ $consulta = new Consulta('Mysql');
     <a class="btn btn-navbar" data-toggle="collapse"
      data-target=".nav-collapse"> <span class="icon-bar"></span> 
      <span class="icon-bar"></span> <span class="icon-bar"></span>
-    </a> <a class="brand" href="#">Football &amp; English Camp 2012</a>
+    </a> <a class="brand" href="#"><?php echo $title; ?></a>
     <div class="nav-collapse">
      <ul class="nav">
       <li class="active"><a href="#home">Inicio</a></li>
@@ -74,66 +93,66 @@ $consulta = new Consulta('Mysql');
             <header class='page-header'>
             <!-- Quitar en version final -->
                 <div class='alert alert-success'>
-                <p>ABIERTO PLAZO INSCRIPCIÓN FOOTBALL &amp; ENGLISH CAMP 2012</p>
+                <p>ABIERTO PLAZO INSCRIPCIÓN <?php echo strtoupper( $title );?></p>
                 </div>
            <!-- Fin aviso -->     
-                <img src='img/football.png' title='Football & English Camp 2012' />
+                <img src='<?php echo $imgForm; ?>' title='<?php echo $title; ?>' />
                 <hgroup>
-                    <h3>Del 2 al 13 de Julio en Villanueva de Gállego</h3>
-                    <h3>De 7 a 14 años</h3>
+                    <h3><?php echo $fechasCampus; ?></h3>
+                    <h3><?php echo $edadCampus; ?></h3>
                 </hgroup>
             </header>
             <div class='well'>
-            	<p>ABADSPORT y ENSEÑALIA realizan este año el 
-            	III Campus Football &amp; English, bajo la inquietud de superarnos 
-            	año tras año, con el reto de conseguir la diversión y aprendizaje 
-            	de nuestros alumnos para la tranquilidad de los padres. 
-            	Siempre bajo nuestra filosofía de fusionar la mejor preparación 
-            	deportiva con el aprendizaje de un idioma.</p>
- 				<p>Vive una experiencia inolvidable con multitud de actividades 
- 				lúdicas, deportivas y educativas que ayudarán a enriquecer el 
- 				desarrollo integral de los niños y niñas en una edad importante. 
- 				Contamos con unas instalaciones únicas en Aragón, 
- 				en Villanueva de Gallego. Equipadas con todo lo necesario 
- 				para realizar unas actividades pensadas para los jóvenes. 
- 				Football &amp; English cuenta con la dirección de Javier Abad, 
- 				Agente FIFA y entrenador nacional.
+            <!-- TEXTO INTRODUCTORIO -->
+            	<p><strong>ENGLISH camp</strong> es un completo programa de inmersión
+            	en Inglés para los más jóvenes en el que aprenderán y pondrán en 
+            	práctica lo aprendido con actividades, clases, talleres y 
+            	deporte de una forma natural sin tener que salir al extrajero.
             	</p>
-            	<h2>Dirigido a</h2>
-            	<p>&raquo; <em>Niños y niñas de 7 a 14 años que quieran desde el entretenimiento y 
-                            	la diversión mejorar sus conocimientos técnicos de fútbol 
-                            	y aumentar sus conocimientos de ingles.</em></p>
-                <p>&raquo; <em>Servicio de Guardería: de 3 a 6 años, dirigida a dar un servicio especial a 
-								los hermanos menores de los inscritos en el campus.</em></p>
-                <p>
+            	<p>En muchas ocasiones resulta difícil y aburrido para los más jóvenes 
+            	seguir estudiando durante el periodo de vacaciones. Cada año tratamos de 
+            	crear un ambiente propicio para el aprendizaje del inglés en un entorno natural 
+            	en el que puedan poner en práctica todo lo aprendido en las distintas 
+            	actividades, clases, talleres y deportes.</p>
+ 				<p>Pensando en los más jóvenes de la casa os ofrecemos un completo programa 
+ 				de inmersión completa en inglés (del 25 junio al 20 julio) sin necesidad de 
+ 				desplazarse a un país extranjero y contando con las magníficas instalaciones 
+ 				del Colegio Santa María del Pilar (Marianistas) en Zaragoza, 
+ 				de uso exclusivo para nuestros alumnos durante todo el campus.</p>
+ 				<p>Contamos con la experiencia de un variado grupo de profesores 
+ 				de habla inglesa (Estados Unidos, Escocia o Gales) que con su entusiasmo 
+ 				y dedicación, harán que los chavales aprendan y disfruten. 
+ 				Esta diversidad cultural va a contribuir a que nuestros chavales 
+ 				practiquen y aprendan inglés al mismo tiempo que conocen la cultura 
+ 				de estos países. Son gente joven y dinámica con amplia experiencia 
+ 				que motivarán a los niños para que puedan poner en práctica todo lo 
+ 				aprendido en las distintas actividades. Esperamos que aprendan a 
+ 				disfrutar usando el idioma inglés de una forma divertida y natural.</p>
                     <a class="btn btn-primary btn-large" data-toggle="collapse"
                         data-target="#readmore">Leer Mas &raquo;</a>
                 </p>
                 <div id="readmore" class="collapse on">
                     <section>
                         <hgroup class='alert alert-info '>
-                            <h2 class='alert-heading'>Objetivos</h2>
+                            <h2 class='alert-heading'>
+                            LEARN ENGLISH, MAKE FRIENDS AND ENJOY THE ACTIVITIES<br/>
+                            <em>APRENDE INGLÉS, HAZ AMIGOS Y DISFRUTA CON LAS ACTIVIDADES</em>
+                            </h2>
                         </hgroup>
                         <div>
                             <div class='span10'>
-                            <p>&raquo; <em>Aprender a comunicarse en inglés a través del fútbol.</em></p>
-                            	<p>&raquo; <em>Desarrollar nuevas cualidades técnicas y tácticas.</em></p>
-                            	<p>&raquo; <em>Conocer nuevos amigos y compañeros, en unas especiales "vacaciones"</em></p>
-                            
-                            	<h3>Objetivos socio-educativos</h3>
-                            	<p>&raquo; <em>Fomentar la convivencia, cooperación e interacción entre los participantes a
-                            	través de la práctica del deporte.</em></p>
-                            	<p>&raquo; <em>Promover valores como amistad, autoestima, tolerancia y juego limpio, 
-                            	repercutiendo positivamente en el desarrollo de la persona.</em></p>
-                            	<p>&raquo; <em>Acercar el inglés a la vida cotidiana a través del deporte.</em></p>
-                           
-                            	<h3>Objetivos deportivos</h3>
-                            	<p>&raquo; <em>Desarrollar el aprendizaje mediante un sistema de entrenamiento global e 
-                            	integral a través del juego.</em></p>
-                            	<p>&raquo; <em>Resolver situaciones técnico-tácticas incidiendo en la importancia de 
-                            	la toma de decisiones en el deporte.</em></p>
-                            	<p>&raquo; <em>Realizar actividad física adquiriendo valores de estilo de vida saludables.</em></p>
-                            	<p>&raquo; <em>Trabajos especificos para porteros con técnicos especialistas.</em></p>	
+                            <h3>Morning Lessons:</h3>
+                            <p>Las clases están especialmente diseñadas para niños de 6 a 12 años.
+                            En el <strong>ENGLISH camp</strong> trabajamos en pequeños grupos, a través
+                            de proyectos, promoviendo la interacción entre los niños.</p>
+                            <h3>Morning Activities:</h3>
+                            <p>Aprenderemos a poner en práctica el inglés a través de otras actividades
+                            en el exterior como el tenis, la natación, olimpiadas o deportes ingleses,
+                            lo cual posibilitará el aprendizaje del idioma de una manera divertida.</p>
+                            <h3>Afternoon activities:</h3>
+                            <p>Talleres de manualidades, música, teatro, etc..., dónde aprenderán a 
+                            expresarse y a desarrollar su creatividad e imaginación.</p>
+                            	
                             </div>
                         </div>
                     </section>
@@ -157,9 +176,9 @@ $consulta = new Consulta('Mysql');
                     </header>
                     <div>
                         <p>Nuestro programa esta pensado para que los niños se lo pasen
-                        bien a la vez que aprenden inglés, combinando el fútbol con el aprendizaje del idioma.</p>
+                        bien a la vez que aprenden inglés</p>
                         <p>Nuestro programa se desarrollara en el siguiente horario:<br/> 
-                        Lunes a Viernes de 9:00 a 18:00. Sábado de 10:00 a 13:00.
+                        Lunes a Viernes de 8:30 a 18:00.
                         </p>
                         <p>
                             <a class="btn btn-info" data-toggle="collapse" data-target="#programa">
@@ -167,97 +186,86 @@ $consulta = new Consulta('Mysql');
                         </p>
                         <div id='programa' class='collapse on'>
                             <div class='well span6'>
-                                <p>&raquo; Explicaciones del contenido de cada sesión.</p>
-                                <p>&raquo; Distribución de grupos por edades en el campo de fútbol.</p>
-                                <p>&raquo; Descanso y recuperación de fuerzas.</p>
-                                <p>&raquo; Clases de Inglés en grupos reducidos.</p>
-                                <p>&raquo; Profesionales del deporte daran charlas a los participantes,
-                                enriqueciendo sus conocimientos, a continuación firmaran autografos
-                                y podrán realizar fotografias.</p>
-                                <p>&raquo; Visionado de videos de fútbol.</p>
-                                <p>&raquo; Cada participante recibira un alumuerzo a media mañana,
-                                comida al mediodía y merienda al finalizar las sesiones.</p>
-                                <p><em>Todos los alimentos del campus reciben un exigente control
-                                sanitario cumpliendo todas las normas de revisión de una empresa con
-                                el certificado de calidad ISO 9001</em>
+                                <img src='http://www.ensenalia.com/sites/default/files/userfiles/horario.png' alt='Programa Diario' />
                             </div>
                             <div class='span5'>
-                            	<img src='http://www.ensenalia.com/sites/default/files/userfiles/image/CAMPAMENTOS/IMG_1672.jpg' alt='Programa Diario' />
+                            	<img src='http://www.ensenalia.com/sites/default/files/imagecache/ampliacion/P6210002_0.jpg' alt='Programa Diario' />
                             </div>
                         </div>
                     </div>
                     
                 </div>
                 
-                <div class='span12'>
-                    <header>
-                        <h3>Actividades complementarias</h3>
-                    </header>
-                    <div>
-                        <p>Nuestro programa se complenta con las siguientes actividades
-                        complementarias</p>
-                        <p>
-                            <a class="btn btn-info" data-toggle="collapse" data-target="#complementarias">
-                            Ver Actividades Complementarias &raquo;</a>
-                        </p>
-                        <div id='complementarias' class='collapse on'>
-                          <div class="well span6">
-                           <p>&raquo; Videos de fútbol</p>
-                           <p>&raquo; Charlas de profesionales relacionadas con el deporte</p>
-                           <p>&raquo; Visitas sorpresa</p>
-                           <p>&raquo; Piscina y deportes alternativos</p>
-                           <p>&raquo; Concursos y torneos</p>
-                           <p>&raquo; Trabajo específico de porteros</p>
-                           <p>&raquo; Fiesta final para los padres y alumnos del campus</p>
-                      </div>
-                      <div class='span5'>
-                      	<img src='http://www.ensenalia.com/sites/default/files/userfiles/image/CAMPAMENTOS/IMG_2717.jpg' alt='Actividades Complementarias'/>
-                      </div>
-                    </div>
-                    </div>
-                </div>
+<!--                 <div class='span12'> -->
+<!--                     <header> -->
+<!--                         <h3>Actividades complementarias</h3> -->
+<!--                     </header> -->
+<!--                     <div> -->
+<!--                         <p>Nuestro programa se complenta con las siguientes actividades -->
+<!--                         complementarias</p> -->
+<!--                         <p> -->
+<!--                             <a class="btn btn-info" data-toggle="collapse" data-target="#complementarias"> -->
+<!--                             Ver Actividades Complementarias &raquo;</a> -->
+<!--                         </p> -->
+<!--                         <div id='complementarias' class='collapse on'> -->
+<!--                           <div class="well span6"> -->
+<!--                            <p>&raquo; Videos de fútbol</p> -->
+<!--                            <p>&raquo; Charlas de profesionales relacionadas con el deporte</p> -->
+<!--                            <p>&raquo; Visitas sorpresa</p> -->
+<!--                            <p>&raquo; Piscina y deportes alternativos</p> -->
+<!--                            <p>&raquo; Concursos y torneos</p> -->
+<!--                            <p>&raquo; Trabajo específico de porteros</p> -->
+<!--                            <p>&raquo; Fiesta final para los padres y alumnos del campus</p> -->
+<!--                       </div> -->
+<!--                       <div class='span5'> -->
+<!--                       	<img src='http://www.ensenalia.com/sites/default/files/userfiles/image/CAMPAMENTOS/IMG_2717.jpg' alt='Actividades Complementarias'/> -->
+<!--                       </div> -->
+<!--                     </div> -->
+<!--                     </div> -->
+<!--                 </div> -->
                 
-                <div class='span12'>
-                    <header>
-                        <h3>Equipo Humano</h3>
-                    </header>
-                    <div>
-                        <p>Nuestro equipo humano se compone de cualificados profesionales.</p>
-                        <p>
-                            <a class="btn btn-info" data-toggle="collapse" data-target="#equipo">
-                            Ver Equipo Humano &raquo;</a>
-                        </p>
-                        <div id='equipo' class='collapse on'>
-                          <div class="well span6">
-                           <p>&raquo; Coordinadores de campo y entrenamientos.</p>
-                           <p>&raquo; Entrenadores con titulación nacional.</p>
-                           <p>&raquo; Monitores titulados.</p>
-                           <p>&raquo; Monitoras de guardería tituladas.</p>
-                           <p>&raquo; Profesores de inglés de Enseñalia.</p>
-                           <p>&raquo; Médico de Medicina general.</p>
-                           <p>&raquo; Socorristas</p>
-                           <p>&raquo; Monitores y coordinadores de comedor.</p>
-                           <p>&raquo; Nutricionista.</p>
-                           <p>&raquo; Responsable de Material.</p>
-                           <p>&raquo; Responsable de Administración.</p>
-                           <p>&raquo; Encargado de Atención telefónica permanente.</p>
-                           <p>&raquo; Coordinador de Prensa para anunciar el evento.</p>
-                           <p>&raquo; Coordinador de eventos extras.</p>
-                           <p>&raquo; Monitores de Autobús.</p>
-                      	</div>
-                      	<div class="span5">
-                      		<img src='http://www.ensenalia.com/sites/default/files/userfiles/image/CAMPAMENTOS/IMG_1566.jpg' alt='Equipo Humano' />
-                      	</div>
-                      </div>
-                    </div>
-                </div>
+<!--                 <div class='span12'> -->
+<!--                     <header> -->
+<!--                         <h3>Equipo Humano</h3> -->
+<!--                     </header> -->
+<!--                     <div> -->
+<!--                         <p>Nuestro equipo humano se compone de cualificados profesionales.</p> -->
+<!--                         <p> -->
+<!--                             <a class="btn btn-info" data-toggle="collapse" data-target="#equipo"> -->
+<!--                             Ver Equipo Humano &raquo;</a> -->
+<!--                         </p> -->
+<!--                         <div id='equipo' class='collapse on'> -->
+<!--                           <div class="well span6"> -->
+<!--                            <p>&raquo; Coordinadores de campo y entrenamientos.</p> -->
+<!--                            <p>&raquo; Entrenadores con titulación nacional.</p> -->
+<!--                            <p>&raquo; Monitores titulados.</p> -->
+<!--                            <p>&raquo; Monitoras de guardería tituladas.</p> -->
+<!--                            <p>&raquo; Profesores de inglés de Enseñalia.</p> -->
+<!--                            <p>&raquo; Médico de Medicina general.</p> -->
+<!--                            <p>&raquo; Socorristas</p> -->
+<!--                            <p>&raquo; Monitores y coordinadores de comedor.</p> -->
+<!--                            <p>&raquo; Nutricionista.</p> -->
+<!--                            <p>&raquo; Responsable de Material.</p> -->
+<!--                            <p>&raquo; Responsable de Administración.</p> -->
+<!--                            <p>&raquo; Encargado de Atención telefónica permanente.</p> -->
+<!--                            <p>&raquo; Coordinador de Prensa para anunciar el evento.</p> -->
+<!--                            <p>&raquo; Coordinador de eventos extras.</p> -->
+<!--                            <p>&raquo; Monitores de Autobús.</p> -->
+<!--                       	</div> -->
+<!--                       	<div class="span5"> -->
+<!--                       		<img src='http://www.ensenalia.com/sites/default/files/userfiles/image/CAMPAMENTOS/IMG_1566.jpg' alt='Equipo Humano' /> -->
+<!--                       	</div> -->
+<!--                       </div> -->
+<!--                     </div> -->
+<!--                 </div> -->
                 <div class='span12'>
                     <header>
                         <h3>Instalaciones</h3>
                     </header>
                     <div>
                         <p>
-                          El <strong>Football &amp; English Camp 2012</strong> se realizara en Villanueva de Gallego
+                          El <strong><?php echo $title; ?></strong>se realizara en el Colegio Santa María 
+                          del Pilar - Marianistas, situado en Paseo Reyes de Aragón 5 - 50012 - Zaragoza. 	
                         </p>
                         <p>
                             <a id='verInstalaciones' class="btn btn-info" data-toggle="collapse" data-target="#ubicacion">
@@ -266,19 +274,11 @@ $consulta = new Consulta('Mysql');
                     </div>
                      <div id='ubicacion' class='collapse on'>
                      	<div class='well span6'>	
-                     		<p>&raquo; Dos campos de fútbol de hierba artificial.</p>
-                     		<p>&raquo; Piscina cubierta y al aire libre.</p>
-                     		<p>&raquo; Pabellón cubierto.</p>
-                     		<p>&raquo; Pistas de Pádel y Tenis.</p>
-                     		<p>&raquo; Aulas para el aprendizaje de Inglés.</p>
-                     		<p>&raquo; Amplios y completos vestuarios.</p>
-                     		<p>&raquo; Salon comedor.</p>
-                     		<p>&raquo; Pistas de fútbol sala y baloncesto.</p>
-                     		<p>&raquo; Campo de fútbol playa.</p>
                      		<div id="map_canvas"></div>
                      	</div>
                      	<div class='span5'>
-                     		<img src='http://www.ensenalia.com/sites/default/files/userfiles/image/CAMPAMENTOS/villanueva02.jpg' alt='Instalaciones' />
+                     		<img src='http://www.ensenalia.com/sites/default/files/imagecache/detalle/DSC02976.JPG' alt='Instalaciones' />
+                     		<img src='http://www.ensenalia.com/sites/default/files/imagecache/detalle/DSC02992.JPG' alt='Instalaciones' />
                      	</div>
                     </div>
                     
@@ -286,30 +286,68 @@ $consulta = new Consulta('Mysql');
                 <div class='span12'>
                 	<header>
                 		<h3>Precio</h3>
-                		</header>
-                		<div class='well'>
-                		<p>Para las 2 semanas del cursos el precio es de 369 €.</p>
-						<p>Servicio de Guardería para los hermanos de 3 a 6 años: 120 € (incluye comidas).</p>
-						<h4>El pago incluye:</h4>
-						<p>&raquo;<em> Almuerzo, comida y merienda. Comida especial para celíacos.</em></p>
-						<p>&raquo;<em> Equipación deportiva obligatoria.</em></p>
-						<p>&raquo;<em> Desplazamiento en autobús hasta las instalaciones del campus y regreso.</em></p>
-						<p>&raquo;<em> Clases de Ingles.</em></p>
-						<p>&raquo;<em> Diplomas y regalos.</em></p>
-						<p>&raquo;<em> Asistencia médica.</em></p>
-						<p>&raquo;<em> Seguro para cada participante.</em></p>
-                		</div>
+                	</header>
+                	 <div>
+                        <p>Los precios estan divididos por las semanas de inscripción al <strong>English
+                        Camp 2012</strong>. Los precios incluyen: Servicio de comedor, camiseta
+                        del campamento, material didáctico, seguro de responsabilidad
+                        civil, enseñanza y todas las actividades.</p>
+                        
+                        <div id='precios'>
+                          <div class="well span6">
+                           <table class='table table-striped table-condensed'>
+                            <thead>
+                             <tr>
+                              <th>Duración</th>
+                              <th>Precio</th>
+                             </tr>
+                            </thead>
+                            <tbody>
+                             <tr>
+                              <td>1 Semana</td>
+                              <td>219€</td>
+                             </tr>
+                             <tr>
+                              <td>2 Semanas</td>
+                              <td>434€</td>
+                             </tr>
+                             <tr>
+                              <td>3 Semanas</td>
+                              <td>619€</td>
+                             </tr>
+                             <tr>
+                              <td>4 Semanas</td>
+                              <td>750€</td>
+                             </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                <td colspan='2'>
+                                 <p>
+                                     <em>10% de Descuento para Familias Numerosas</em>
+                                 </p>
+                                 <p>
+                                     <em>10 % de Descuento Plan Amigos ( 5 minimo )</em>
+                                 </p>
+                                 <p>
+                                     *Descuentos no Acumulables
+                                 </p>
+                                 <p>
+                                  <em>Precio del autobus NO INCLUIDO</em>
+                                 </p>
+                                 <p>
+                                 <em>Consultar precios para hermanos de 3 a 6 años</em>
+                                 </p>
+                                </td>
+                               </tr>
+                           </tfoot>
+                        </table>
+                      </div>
+                    </div>
+                    </div>
+                	
                 </div>
-                <div class='span12'>
-                	<div class='alert alert-info'>
-                		<h2 class='alert-heading'>IMPORTANTE:</h2>
-                		Teléfono permanente para comunicación de padres 
-                		o familiares que se facilitará el primer día del campus. 
-                		Los jugadores estarán bajo control de los técnicos del campus 
-                		durante todo el día, incluyendo los desplazamientos en autobús. 
-                		En la piscina estarán controlados por los técnicos y socorristas.
-                	</div>
-                </div>
+                
                 
             </section>
         </div>
@@ -324,12 +362,11 @@ $consulta = new Consulta('Mysql');
                         <h2>Rutas de Autobuses</h2>
                     </header>
                 </div>
-                <div class='span4'>
+                <div class='span5'>
                     <header>
                         <h3>Ruta 1</h3>
-                        <p><em>Avda Cataluña - Maria Zambrano - Avda Academia 
-                        General Militar - Ciudad del Transporte - Zuera - 
-                        Villanueva de Gallego
+                        <p><em>Pº Sagasta - Plz Aragón - Coso - C. Alierta - 
+                        Cº Las Torres - Pº Colón / Ruiseñores
                         </em></p>
                         <p>
                         <a id='verRuta1' class="btn btn-info verRuta" data-toggle="collapse"
@@ -359,11 +396,12 @@ $consulta = new Consulta('Mysql');
                           </div>
                          </div>
                 </div>
-                <div class='span4'>
+                <div class='span5'>
                     <header>
                         <h3>Ruta 2</h3>
-                        <p><em>Cmo las Torres - Juan Pablo Bonet - Mariano Barbasán
-                         - Tomas Bretón - Avda Navarra - Plz Europa</em>
+                        <p><em>Plz. Mozart - S.Allende - Mª Zambrano - 
+                        Gómez de Avellaneda - Pº Mª Agustin - Plz San Francisco - 
+                        Condes de Aragón - Gomez Laguna - Avd. Ilustración</em>
                         <p>
                         <a id='verRuta2' class="btn btn-info verRuta" data-toggle="collapse"
                         data-target="#ruta2">Ver Ruta 2 Detallada &raquo;</a>
@@ -380,39 +418,6 @@ $consulta = new Consulta('Mysql');
                        </tr>
                       </thead>
                       <tbody id='detalleRuta2'>
-  					  <!-- Detalle generado bajo demanda -->
-                      </tbody>
-                      <tfoot>
-                       <tr>
-                        <td colspan='3'><em>*Esta información esta sujeta
-                          a cambios</em></td>
-                       </tr>
-                      </tfoot>
-                     </table>
-                     </div> 
-                    </div>
-                </div>
-                 <div class='span4'>
-                    <header>
-                        <h3>Ruta 3</h3>
-                        <p><em>Pso Pamplona - Gomez Laguna - Tomas Anzano - 
-                        Ronda Oliver - Torres de San Lamberto</em>
-                        <p>
-                        <a id='verRuta3' class="btn btn-info verRuta" data-toggle="collapse"
-                        data-target="#ruta3">Ver Ruta 3 Detallada &raquo;</a>
-                        </p>
-                    </header>
-                    <div id="ruta3" class='collapse on'>
-                     <div class='well'>  
-                     <table class='table table-striped table-condensed'>
-                      <thead>
-                       <tr>
-                        <th>Parada</th>
-                        <th>IDA</th>
-                        <th>VUELTA</th>
-                       </tr>
-                      </thead>
-                      <tbody id='detalleRuta3'>
   					  <!-- Detalle generado bajo demanda -->
                       </tbody>
                       <tfoot>
@@ -446,24 +451,13 @@ $consulta = new Consulta('Mysql');
                         </p>
                     </header> 
                     <div id="myCarousel" class='span10' style="height:540px;overflow:scroll">
-                    <a href="http://www.youtube.com/watch?v=PSh534c9wwM" rel="prettyPhoto" title="Football & English 2012">
-                    	<img src="http://img.youtube.com/vi/PSh534c9wwM/0.jpg" class="cloudcarousel" alt="" title="Football &amp; English Camp 2012"/>
+                    <a href="http://youtu.be/JHN8Dw3XbrM" rel="prettyPhoto" title="English Camp Zaragoza 2011">
+                    	<img src="http://img.youtube.com/vi/JHN8Dw3XbrM/0.jpg" class="cloudcarousel" alt="" title="English Camp Zaragoza 2011"/>
                     </a>
-                    <a href="http://www.youtube.com/watch?v=lWKFXPwm1SI" rel="prettyPhoto" title="">
-                    	<img src="http://img.youtube.com/vi/lWKFXPwm1SI/0.jpg" class="cloudcarousel" alt="" title="Promocional Football &amp; English Camp"/>
+                    <a href="http://youtu.be/HN-MsJpazhw" rel="prettyPhoto" title="English Summer Day Camp 2010 ">
+                    	<img src="http://img.youtube.com/vi/HN-MsJpazhw/0.jpg" class="cloudcarousel" alt="" title="English Summer Day Camp 2010 "/>
                     </a>
-                    <a href="http://www.youtube.com/watch?v=PhET-v1OqIY" rel="prettyPhoto" title="">
-                    	<img src="http://img.youtube.com/vi/PhET-v1OqIY/0.jpg" class="cloudcarousel" alt="" title="Aragón en Abierto - Reportaje Football &amp; English Camp"/>
-                    </a>
-                    <a href="http://www.youtube.com/watch?v=ajl1TX9_zsw" rel="prettyPhoto" title="">
-                    	<img src="http://img.youtube.com/vi/ajl1TX9_zsw/0.jpg" class="cloudcarousel" alt="" title="Football &amp; English Camp Saludable"/>
-                    </a>
-                    <a href="http://www.youtube.com/watch?v=3HrV_VMG6hc" rel="prettyPhoto" title="">
-                    	<img src="http://img.youtube.com/vi/3HrV_VMG6hc/0.jpg" class="cloudcarousel" alt="" title="Visita de Ander Garitano - Footbal &amp; English Camp 2011"/>
-                    </a>
-                    <a href="http://www.youtube.com/watch?v=v6gLgeEYVwA" rel="prettyPhoto" title="">
-                    	<img src="http://img.youtube.com/vi/v6gLgeEYVwA/0.jpg" class="cloudcarousel" alt="Emisión en Antena 3 Noticias el 12/07/10" title="A3N - Campus Fútbol Zaragoza - Mundial 2010"/>
-                    </a>
+                   
                      <!-- Define left and right buttons. -->
         			<input id="left-but"  class='carousel-control left' type="button" value="&lt;" />
         			<input id="right-but" class='carousel-control right' type="button" value="&gt;" />
@@ -696,74 +690,68 @@ $consulta = new Consulta('Mysql');
                         </div>
                 </div>
                 
-<!-- SECCION DE LAS OPCIONES DEL CAMPAMENTO  -->                
-                    <div class='span12'>
+<!-- SECCION DE LAS OPCIONES DEL CAMPAMENTO  -->
+                	 <div class='span12'>
                     <header>
-                        <h3>Opciones Football &amp; English Camp 2012</h3>
+                        <h3>Fechas De Campamento:</h3>
                         <p>
-                            <em>*Señale las opciones que se desea contratar</em>
+                            <em>Señale las semanas que se desea contratar</em>
                         </p>
                     </header>
                     </div>
                     <div class='span6'>
                         <div class='alert alert-info'>
-                            <h4>Football &amp; English Camp 2012 - Del 2 al 13 De Julio</h4>
+                            <h4>Semana: 25 de Junio al 29 de Junio</h4>
                             <label class="checkbox"> 
-                                <input type="checkbox" id="semana1Campus" name="semana1Campus" readonly="readonly" value="Si" checked>
-                                <input type="hidden" id="semana2Campus" name="semana2Campus" readonly="readonly" value="No" checked>
-                                <input type="hidden" id="semana3Campus" name="semana3Campus" readonly="readonly" value="No" checked>
-                                <input type="hidden" id="semana4Campus" name="semana4Campus" readonly="readonly" value="No" checked>
-                                Inscripción al Football &amp; English Camp 2012 - 369 &euro;
+                                <input type="checkbox" id="1semana" name="semana1Campus" value="Si">
+                                Marcar para 1ª Semana
                             </label>
-                        </div>
-                    </div>
-                    <div class='span6'>      
+                        </div>  
                         <div class="alert alert-info">
-                            <h4>Servicio de Guarderia para hermanos de 3 a 6 años</h4>
-       
+                            <h4>Semana: 9 de Julio al 13 de Julio</h4>
                             <label class="checkbox"> 
-                                <input type="checkbox" id="guarderia" name="guarderia" value="Si">
-                                Servicio de Guarderia para hermanos - 120 &euro;
+                                <input type="checkbox" id="3semana" name="semana3Campus" value="Si">
+                                Marcar para 3ª semana
                             </label>
                         </div>
-                        <!-- Datos del hermano en la guarderia -->
-                        <div id='datosHermano' class='well'>
-                        	<h4>Datos del Hermano/a</h4>
-                        	<div class='alert alert-info'>
-                        		<p><em>* En caso de necesitar guarderia para mas de un hermano contactar con nosotros</em></p>
-                        	</div>
-                        	<label>*Nombre Hermano/a:</label> 
-                        	<input type="text" name='nombreHermano' class="span4" placeholder="Nombre del/la Hermano/a">
-                        	<label>*Apellidos:</label> 
-                        	<input type="text" name='apellidosHermano' class="span4" placeholder="Apellidos del/la Hermano/a">
-                        	<div class="control-group">
-                            	<label class="control-label" for="optionsCheckbox">*Sexo:</label>
-                            	<div class="controls">
-                                	<label class="radio inline"> 
-                                		<input type="radio" id="sexo" name="sexoHermano" value="masculino">
-                                			Masculino
-                               	 	</label> 
-                                	<label class="radio inline"> 
-                                		<input type="radio" id="sexo" name="sexoHermano" value="femenino">
-                                		Femenino
-                                	</label>
-                            	</div>
-                        	</div>
-                        	<label>*Fecha de Nacimiento Hermano/a:</label> 
-                        	<input type="text" id='fechanacimientoHermano' name='fechanacimientoHermano' 
-                        	class="span2 campoFecha" placeholder="dd/mm/aaaa">
-                        	<div class="control-group">
-                            <label class="control-label" for="observacionesHermano">Observaciones:</label>
-                            <div class="controls">
-                                <textarea class="input-xlarge" id="comentarios"
-                                class='mensaje' 
-                                name='observacionesHermano' rows="5" 
-                                placeholder='Indique si el hermano necesita algun cuidado especial, tratamiento, dieta, o cualquier otra observacion que considere necesaria'
-                            	title="Indique si el hermano necesita algun cuidado especial, tratamiento, dieta, o cualquier otra observacion que considere necesaria"></textarea>
-                            </div>
-                        </div>
-                        </div> <!-- Fin Datos Hermano -->
                     </div>
+                    
+                    <div class='span6'>
+                        <div class="alert alert-info">
+                            <h4>Semana: 2 de Julio al 8 de Julio</h4>
+                            <label class="checkbox"> 
+                                <input type="checkbox" id="2semana" name="semana2Campus" value="Si">
+                                Marcar para 2ª semana
+                            </label>
+                        </div>
+                        <div class="alert alert-info">
+                            <h4>Semana: 16 de Julio al 20 de Julio</h4>
+                            <label class="checkbox"> 
+                                <input type="checkbox" id="4semana" name="semana4Campus" value="Si">
+                                Marcar para 4ª semana
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class='span12'>
+                        <header>
+                        <h3>Servicio De Autobus</h3>
+                        </header>
+                        <div class='well'>
+                        <header>
+                            <h4>¿Desea contratar el servicio de autobús para el campamento?</h4>
+                            <em>El precio del autobus tiene un coste adicional de 25€ por semana</em>
+                        </header>    
+                        <label class="checkbox">
+                            <input type="checkbox" id="servicioAutobus" name="servicioAutobus" value="Si"> 
+                            Marcar para contratar el servicio de autobús
+                        </label>
+                        <em>*Si contrata el servicio de autobus debe especificar la ruta de ida
+                            y la ruta de vuelta asi como la parada tanto de ida como de vuelta</em>
+                        </div>
+                    </div>                
+                    
+                    
                     <!-- Muestra la seccion del codigo promocional -->
                     <div class='span12'>
                     	<div class='alert alert-info'>
@@ -778,43 +766,8 @@ $consulta = new Consulta('Mysql');
                     		<span id='mensajeDescuento'></span>
                     	</div>
                     </div>
-                    <!-- Muestra el total de la inscripción segun lo que se ha contratado -->
-                    <div class='span12'>
-                    	<div class='alert alert-success'>
-                    		<p><span class='totalInscripcion'>Total Inscripción:</span><span id='totalInscripcion'>369€</span></p>
-                    	</div>
-                    </div>
-                    <!-- Seccion de la seleccion de talla de la equipacion -->
-                    <div class='span12'>
-                    	<header>
-                    	<h3>Equipación</h3>
-                    	<p>
-                    		<em>*Seleccione la talla de la equipación del participante</em>
-                    	</p>
-                    	</header>
-                    </div>
-                    <div class='span12'>
-                    	<div class='alert alert-info'>		
-                    		<select id='talla' name='talla'>
-                    			<option value='0'>-- Seleccione la Talla --</option>
-                    			<optgroup label="Tallas">
-                    			<option value='4'>4</option>
-                    			<option value='6'>6</option>
-                    			<option value='8'>8</option>
-                    			<option value='10'>10</option>
-                    			<option value='XXS'>XXS</option>
-                    			<option value='XS'>XS</option>
-                    			<option value='S'>S</option>
-                    			<option value='M'>M</option>
-                    			<option value='L'>L</option>
-                    			<option value='XL'>XL</option>
-                    			<option value='XXL'>XXL</option>
-                    			<option value='3XL'>3XL</option>
-                    			</optgroup>
-                    		</select>
-                    		<input id='tallas' type='button' class='btn btn-info' value='Ver guia de Tallas'>
-                    	</div>
-                    </div>
+                    
+                   
                     <!-- Seccion de la seleccion de rutas de autobus -->
                     <div class='span12'>
                         <header>
@@ -840,10 +793,7 @@ $consulta = new Consulta('Mysql');
                                 <input type="radio"  name="rutaIda" id='ruta2Ida' value="Ruta2">
                                 Ruta 2
                             </label>
-                            <label class="checkbox inline"> 
-                                <input type="radio"  name="rutaIda" id='ruta3Ida' value="Ruta3">
-                                Ruta 3
-                            </label>
+                            
                         </div>
                         <label>Parada:</label> 
                         <select id='nombreParadaIda' name='paradaIda' class='span5 required'></select>
@@ -863,15 +813,19 @@ $consulta = new Consulta('Mysql');
                                 <input type="radio"  name="rutaVuelta" id='ruta2Vuelta' value="Ruta2">
                                 Ruta 2
                             </label>
-                            <label class="checkbox inline"> 
-                                <input type="radio"  name="rutaVuelta" id='ruta3Vuelta' value="Ruta3">
-                                Ruta 3
-                            </label>
+                            
                         </div>
                         <label>Parada:</label>
                         <select id='nombreParadaVuelta' name='paradaVuelta' class='span5 required'></select>
                         </div>
                     </div>
+                <!-- Muestra el total de la inscripción segun lo que se ha contratado -->
+                    <div class='span12'>
+                    	<div class='alert alert-success'>
+                    		<p><span class='totalInscripcion'>Total Inscripción:</span><span id='totalInscripcion'></span></p>
+                    	</div>
+                    </div>
+                <!-- Plan amigos -->        
                 <div class='span12' id='planAmigos'>
                 	<header>
                 		<h3>Invita a 4 o mas de tus amigos y conseguid y precio especial</h3>
@@ -918,7 +872,7 @@ $consulta = new Consulta('Mysql');
                 </div>    
                 <div class='span12'>
                     <header>
-                        <h3>Condiciones Generales del Football &amp; English Camp 2012</h3>
+                        <h3>Condiciones Generales del <?php echo $title; ?></h3>
                         <p><em>Lea con detenimiento las condiciones del campus</em></p>
                     </header>
                     <div class='well'>
@@ -983,7 +937,7 @@ $consulta = new Consulta('Mysql');
                         <label class="checkbox inline"> 
                             <input type="checkbox" id="condiciones" name="condicionesAceptadas" value="Si" class='required'>
                             <strong>* Haciendo clic en esta casilla manifiesta que ha leido y acepta
-                            las condiciones del Football &amp; English Camp 2012</strong><br/>
+                            las condiciones del <?php echo $title; ?></strong><br/>
                             <strong>* Es importante que revise los campos marcados con * para comprobar que esta todo correcto</strong>
                         </label> 
                     </div>

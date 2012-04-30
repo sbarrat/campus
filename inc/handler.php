@@ -11,11 +11,11 @@
  * @author   Ruben Lacasa Mas <ruben@ensenalia.com>
  * @license  http://creativecommons.org/licenses/by-nc-nd/3.0/
  * 			 Creative Commons Reconocimiento-NoComercial-SinObraDerivada 3.0 Unported
- * @link     http://www.ensenalia.com/camps/football
- * @version  2.0e Estable
+ * @link     http://www.ensenalia.com/camps/english
+ * @version  1.0 Estable
  */
 require_once 'Consulta.php';
-$campus = 'football';
+$campus = 'english';
 $sql = null;
 $rutaIda = false;
 $rutaVuelta = false;

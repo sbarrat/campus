@@ -86,7 +86,7 @@ var complementosIniciales = function() {
  * Inicializacion del mapa
  */
 var inicializaMapa = function() {
-	var latlng = new google.maps.LatLng(41.758420, -0.833491);
+	var latlng = new google.maps.LatLng(41.625356, -0.900222);
 	var myOptions = {
 		zoom : 14,
 		center : latlng,
@@ -97,15 +97,15 @@ var inicializaMapa = function() {
 	var marker = new google.maps.Marker({
 		map : map,
 		position : latlng,
-		title : 'Campus Football and English 2012 - Enseñalia'
+		title : 'Enseñalia English Camp 2012 - Colegio Marianistas'
 	});
 	var infoWindow = new google.maps.InfoWindow;
 	google.maps.event.addListener( marker,'click',
 			function() {
 				latlng = marker.getPosition();
 				infoWindow
-					.setContent('<h5>Campus Football and English 2012 </h5>'
-							+ 'Calle de Rigoberta Menchú - 50830 - Villanueva de Gállego')
+					.setContent('<h5>English Camp 2012 - Colegio Santa María del Pilar ( Marianistas)</h5>'
+							+ 'Paseo Reyes de Aragón 5 - 50012 - Zaragoza')
 					.setOptions({ 'maxWidth' : 100 })
 					.open(map, marker);
 			});
