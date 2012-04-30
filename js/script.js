@@ -35,7 +35,7 @@ var complementosIniciales = function() {
 	// Ocultamos el boton aceptar - Modificar para el back
 	$('#botonAceptar').hide();
 	// Ocultamos el div del hermano pequeño
-	$('#datosHermano').hide();
+	$('.rutas').hide();
 	// Configuramos el datepicker de la fecha de nacimiento
 	$('.campoFecha').datepicker({
 		firstDay: 1,
@@ -116,15 +116,35 @@ var inicializaMapa = function() {
  * Se inicializa el mapa al hacer click en el boton ver Instalaciones
  */
 $('#verInstalaciones').click( inicializaMapa );
+/**
+ * Funcion que comprueba si se han marcado las rutas de autobus
+ */
 var busMarcado = function(){
-	if ( 
-		( $("#ruta1Ida").is(':checked') || $("#ruta2Ida").is(':checked') || $("#ruta3Ida").is(':checked') ) 
+	if ( $('#servicioAutobus').is(':checked') ){
+		if ( 
+			( $("#ruta1Ida").is(':checked') || $("#ruta2Ida").is(':checked')  ) 
 			&& 
-		( $("#ruta1Vuelta").is(':checked') || $("#ruta2Vuelta").is(':checked') || $("#ruta3Vuelta").is(':checked') ) ) {
+			( $("#ruta1Vuelta").is(':checked') || $("#ruta2Vuelta").is(':checked') )) {
 		
 		return true;
 	} else {
 		alert('Debe seleccionar las rutas de autobuses');
+		$("#condiciones").attr( 'checked', false );
+		return false;
+	}
+	} else {
+		return true;
+	}
+};
+/**
+ * Funcion que comprueba si se ha marcado alguna semana del campus
+ */
+var semanaMarcado = function(){
+	var semanas = $('.semanaCampus:checked').length;
+	if ( semanas > 0 ) {
+		return true;
+	} else {
+		alert('Debe seleccionar al menos 1 semana del campus');
 		$("#condiciones").attr( 'checked', false );
 		return false;
 	}
@@ -133,7 +153,7 @@ var busMarcado = function(){
  * Muestra el boton o lo oculta de las condiciones del campus
  */
 $('#condiciones').click(function(){
-	 if( $("#condiciones").is(':checked') && ( busMarcado() ) ) {  
+	 if( $("#condiciones").is(':checked') && ( semanaMarcado() ) && ( busMarcado() )) {  
          $('#botonAceptar').show('blind'); 
      } else {  
          $('#botonAceptar').hide('blind');  
@@ -209,8 +229,8 @@ $('.masAmigos').click(function(){
 /**
  * Function que recalcula el total
  */
-var recalculaTotal = function( codigoDescuento, conGuarderia ) {
-	$.post('inc/handler.php',{descuento:codigoDescuento, guarderia:conGuarderia},function( data ){
+var recalculaTotal = function( codigoDescuento, semanas, autobus ) {
+	$.post('inc/handler.php',{descuento:codigoDescuento, semanasCampus:semanas, servicioAutobus:autobus},function( data ){
 		$('#mensajeDescuento')
 			.html('')
 			.removeClass('alert')
@@ -238,32 +258,62 @@ var recalculaTotal = function( codigoDescuento, conGuarderia ) {
  * Calcula el precio al aplicar el codigo de descuento
  */
 $('#aplicarDescuento').click(function(){
-	var conGuarderia = 0;
-	if ( $('#guarderia').is(':checked') ) {
-		conGuarderia = 1;
+	var semanas = $('.semanaCampus:checked').length;
+	var autobus = 'No';
+	if ( $('#servicioAutobus').is(':checked') ){
+		autobus = 'Si';
 	}
-	recalculaTotal( $('#codigoDescuento').val(), conGuarderia );
+	recalculaTotal( $('#codigoDescuento').val(), semanas, autobus );
 });
 $('#noaplicarDescuento').click(function(){
-	var conGuarderia = 0;
+	var semanas = $('.semanaCampus:checked').length;
+	var autobus = 'No';
+	if ( $('#servicioAutobus').is(':checked') ){
+		autobus = 'Si';
+	}
 	$('#codigoDescuento').val('');
 	$('#planAmigos').show();
-	if ( $('#guarderia').is(':checked') ) {
-		conGuarderia = 1;
+	recalculaTotal( $('#codigoDescuento').val(), semanas, autobus );
+});
+/**
+ * Calcula el precio si se ha marcado el bus
+ */
+$('#servicioAutobus').click(function(){
+	var autobus = 'No';
+	var semanas = $('.semanaCampus:checked').length;
+	if( $('#servicioAutobus').is(':checked') ) {
+		$('.rutas').show();
+		autobus = 'Si';
+	} else {
+		$('.rutas').hide();
 	}
-	recalculaTotal( $('#codigoDescuento').val(), conGuarderia );
+	recalculaTotal( $('#codigoDescuento').val(), semanas, autobus );
+});
+/**
+ * Calcula el precio segun las semanas marcadas
+ */
+$('.semanaCampus').click(function(){
+	var semanas = $('.semanaCampus:checked').length;
+	var autobus = 'No';
+	if ( $('#servicioAutobus').is(':checked') ){
+		autobus = 'Si';
+	}
+	recalculaTotal( $('#codigoDescuento').val(), semanas, autobus );
+	
 });
 /**
 * Calcula el precio con la guarderia activada
 */
-$('#guarderia').click(function(){
-	var conGuarderia = 0;
-	if( $("#guarderia").is(':checked') ) {
-		conGuarderia = 1;
-		$('#datosHermano').show();
-		recalculaTotal( $('#codigoDescuento').val(), conGuarderia );
-	} else {
-		$('#datosHermano').hide();
-		recalculaTotal( $('#codigoDescuento').val(), conGuarderia );
-	}  
-});
+//$('#guarderia').click(function(){
+//	var conGuarderia = 0;
+//	if( $("#guarderia").is(':checked') ) {
+//		conGuarderia = 1;
+//		$('#datosHermano').show();
+//		recalculaTotal( $('#codigoDescuento').val(), conGuarderia );
+//	} else {
+//		$('#datosHermano').hide();
+//		recalculaTotal( $('#codigoDescuento').val(), conGuarderia );
+//	}  
+//});
+
+

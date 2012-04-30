@@ -170,6 +170,7 @@ $campus = 'english';
                         <h2>Información Basica</h2>
                     </header>
                 </div>
+           <!-- PROGRAMA DIARIO -->
                 <div class='span12'>
                     <header>
                         <h3>Programa diario</h3>
@@ -195,69 +196,7 @@ $campus = 'english';
                     </div>
                     
                 </div>
-                
-<!--                 <div class='span12'> -->
-<!--                     <header> -->
-<!--                         <h3>Actividades complementarias</h3> -->
-<!--                     </header> -->
-<!--                     <div> -->
-<!--                         <p>Nuestro programa se complenta con las siguientes actividades -->
-<!--                         complementarias</p> -->
-<!--                         <p> -->
-<!--                             <a class="btn btn-info" data-toggle="collapse" data-target="#complementarias"> -->
-<!--                             Ver Actividades Complementarias &raquo;</a> -->
-<!--                         </p> -->
-<!--                         <div id='complementarias' class='collapse on'> -->
-<!--                           <div class="well span6"> -->
-<!--                            <p>&raquo; Videos de fútbol</p> -->
-<!--                            <p>&raquo; Charlas de profesionales relacionadas con el deporte</p> -->
-<!--                            <p>&raquo; Visitas sorpresa</p> -->
-<!--                            <p>&raquo; Piscina y deportes alternativos</p> -->
-<!--                            <p>&raquo; Concursos y torneos</p> -->
-<!--                            <p>&raquo; Trabajo específico de porteros</p> -->
-<!--                            <p>&raquo; Fiesta final para los padres y alumnos del campus</p> -->
-<!--                       </div> -->
-<!--                       <div class='span5'> -->
-<!--                       	<img src='http://www.ensenalia.com/sites/default/files/userfiles/image/CAMPAMENTOS/IMG_2717.jpg' alt='Actividades Complementarias'/> -->
-<!--                       </div> -->
-<!--                     </div> -->
-<!--                     </div> -->
-<!--                 </div> -->
-                
-<!--                 <div class='span12'> -->
-<!--                     <header> -->
-<!--                         <h3>Equipo Humano</h3> -->
-<!--                     </header> -->
-<!--                     <div> -->
-<!--                         <p>Nuestro equipo humano se compone de cualificados profesionales.</p> -->
-<!--                         <p> -->
-<!--                             <a class="btn btn-info" data-toggle="collapse" data-target="#equipo"> -->
-<!--                             Ver Equipo Humano &raquo;</a> -->
-<!--                         </p> -->
-<!--                         <div id='equipo' class='collapse on'> -->
-<!--                           <div class="well span6"> -->
-<!--                            <p>&raquo; Coordinadores de campo y entrenamientos.</p> -->
-<!--                            <p>&raquo; Entrenadores con titulación nacional.</p> -->
-<!--                            <p>&raquo; Monitores titulados.</p> -->
-<!--                            <p>&raquo; Monitoras de guardería tituladas.</p> -->
-<!--                            <p>&raquo; Profesores de inglés de Enseñalia.</p> -->
-<!--                            <p>&raquo; Médico de Medicina general.</p> -->
-<!--                            <p>&raquo; Socorristas</p> -->
-<!--                            <p>&raquo; Monitores y coordinadores de comedor.</p> -->
-<!--                            <p>&raquo; Nutricionista.</p> -->
-<!--                            <p>&raquo; Responsable de Material.</p> -->
-<!--                            <p>&raquo; Responsable de Administración.</p> -->
-<!--                            <p>&raquo; Encargado de Atención telefónica permanente.</p> -->
-<!--                            <p>&raquo; Coordinador de Prensa para anunciar el evento.</p> -->
-<!--                            <p>&raquo; Coordinador de eventos extras.</p> -->
-<!--                            <p>&raquo; Monitores de Autobús.</p> -->
-<!--                       	</div> -->
-<!--                       	<div class="span5"> -->
-<!--                       		<img src='http://www.ensenalia.com/sites/default/files/userfiles/image/CAMPAMENTOS/IMG_1566.jpg' alt='Equipo Humano' /> -->
-<!--                       	</div> -->
-<!--                       </div> -->
-<!--                     </div> -->
-<!--                 </div> -->
+            <!-- INSTALACIONES -->
                 <div class='span12'>
                     <header>
                         <h3>Instalaciones</h3>
@@ -283,6 +222,7 @@ $campus = 'english';
                     </div>
                     
                 </div>
+                <!-- PRECIO -->
                 <div class='span12'>
                 	<header>
                 		<h3>Precio</h3>
@@ -610,7 +550,9 @@ $campus = 'english';
                         <div class="control-group">
                             <label class="control-label" for="comentarios">Comentarios:</label>
                             <div class="controls">
-                                <textarea class="input-xlarge" id="comentarios" name='comentariosParticipante' rows="5"></textarea>
+                                <textarea class="input-xlarge mensaje" id="comentarios" name='comentariosParticipante' rows="5" 
+                                placeholder='En caso de ser familia numerosa indique el numero aqui' 
+                                title='En caso de ser familia numerosa indique el numero aqui'></textarea>
                             </div>
                         </div>
                     </div>
@@ -637,7 +579,7 @@ $campus = 'english';
                         </div>
                    
                     
-                    
+                    <!-- DATOS MEDICOS -->
                         <header>
                             <h3>Datos Médicos</h3>
                             <p>
@@ -660,7 +602,7 @@ $campus = 'english';
                                 title="Indique si el participante debe seguir alguna dieta especial, en caso contrario escriba 'No tiene'">
                         </div>
                     
-                    
+                    <!-- DATOS PADRE/MADRE -->
                         <header>
                             <h3>Padres o Tutores Legales</h3>
                             <p>
@@ -687,6 +629,7 @@ $campus = 'english';
                             <input type="text" name='movilMadre' class="span4" placeholder="Numero Movíl"> 
                             <label>Correo Electronico:</label> 
                             <input type="text" name='emailMadre' class="span4 email" placeholder="Email">
+                            <input type="hidden" name='guarderia' value='No' />
                         </div>
                 </div>
                 
@@ -703,14 +646,14 @@ $campus = 'english';
                         <div class='alert alert-info'>
                             <h4>Semana: 25 de Junio al 29 de Junio</h4>
                             <label class="checkbox"> 
-                                <input type="checkbox" id="1semana" name="semana1Campus" value="Si">
+                                <input type="checkbox" class='semanaCampus' id="1semana" name="semana1Campus" value="Si">
                                 Marcar para 1ª Semana
                             </label>
                         </div>  
                         <div class="alert alert-info">
                             <h4>Semana: 9 de Julio al 13 de Julio</h4>
                             <label class="checkbox"> 
-                                <input type="checkbox" id="3semana" name="semana3Campus" value="Si">
+                                <input type="checkbox" class='semanaCampus' id="3semana" name="semana3Campus" value="Si">
                                 Marcar para 3ª semana
                             </label>
                         </div>
@@ -720,28 +663,24 @@ $campus = 'english';
                         <div class="alert alert-info">
                             <h4>Semana: 2 de Julio al 8 de Julio</h4>
                             <label class="checkbox"> 
-                                <input type="checkbox" id="2semana" name="semana2Campus" value="Si">
+                                <input type="checkbox" class='semanaCampus' id="2semana" name="semana2Campus" value="Si">
                                 Marcar para 2ª semana
                             </label>
                         </div>
                         <div class="alert alert-info">
                             <h4>Semana: 16 de Julio al 20 de Julio</h4>
                             <label class="checkbox"> 
-                                <input type="checkbox" id="4semana" name="semana4Campus" value="Si">
+                                <input type="checkbox" class='semanaCampus' id="4semana" name="semana4Campus" value="Si">
                                 Marcar para 4ª semana
                             </label>
                         </div>
                     </div>
                     
                     <div class='span12'>
-                        <header>
+                       <div class='alert alert-info'>
                         <h3>Servicio De Autobus</h3>
-                        </header>
-                        <div class='well'>
-                        <header>
                             <h4>¿Desea contratar el servicio de autobús para el campamento?</h4>
                             <em>El precio del autobus tiene un coste adicional de 25€ por semana</em>
-                        </header>    
                         <label class="checkbox">
                             <input type="checkbox" id="servicioAutobus" name="servicioAutobus" value="Si"> 
                             Marcar para contratar el servicio de autobús
@@ -749,7 +688,48 @@ $campus = 'english';
                         <em>*Si contrata el servicio de autobus debe especificar la ruta de ida
                             y la ruta de vuelta asi como la parada tanto de ida como de vuelta</em>
                         </div>
-                    </div>                
+                    </div>    
+                         <!-- Seccion de la seleccion de rutas de autobus -->
+                   		<div class='span6 rutas'>
+                   			<div class='alert alert-info'>
+                        	<header>
+                            	<h5>*Ruta Ida:</h5>
+                        	</header>
+                        	<div class="controls">
+                            	<label class="checkbox inline"> 
+                                	<input type="radio"  name="rutaIda" id='ruta1Ida' value="Ruta1">
+                                	Ruta 1
+                            	</label> 
+                            	<label class="checkbox inline"> 
+                                	<input type="radio"  name="rutaIda" id='ruta2Ida' value="Ruta2">
+                                	Ruta 2
+                            	</label>
+                        	</div>
+                        	<label>Parada:</label> 
+                        		<select id='nombreParadaIda' name='paradaIda' class='span5 required'></select>
+                        	</div>
+                        </div>
+                        <div class='span6 rutas'>
+                    	<div class='alert alert-info'>
+                        	<header>
+                            	<h5>*Ruta Vuelta:</h5>
+                        	</header>
+                        	<div class="controls">
+                            	<label class="checkbox inline"> 
+                                	<input type="radio"  name="rutaVuelta" id='ruta1Vuelta' value="Ruta1">
+                                	Ruta 1
+                            	</label> 
+                            	<label class="checkbox inline"> 
+                                	<input type="radio"  name="rutaVuelta" id='ruta2Vuelta' value="Ruta2">
+                                	Ruta 2
+                            	</label>    
+                        	</div>
+                        	<label>Parada:</label>
+                        		<select id='nombreParadaVuelta' name='paradaVuelta' class='span5 required'></select>
+                        </div>
+                    	</div>
+                    
+                                  
                     
                     
                     <!-- Muestra la seccion del codigo promocional -->
@@ -768,57 +748,7 @@ $campus = 'english';
                     </div>
                     
                    
-                    <!-- Seccion de la seleccion de rutas de autobus -->
-                    <div class='span12'>
-                        <header>
-                        <h3>Servicio De Autobus</h3>
-                        <input type='hidden' name='servicioAutobus' value='Si' />
-                        <p>
-                        <em>Debe especificar la ruta de ida
-                            y la ruta de vuelta asi como la parada tanto de ida como de vuelta</em>
-                        </p>
-                        </header>
-                    </div>
-                    <div class='span6 rutas'>
-                        <div class="control-group alert alert-info">
-                        <header>
-                            <h5>*Ruta Ida:</h5>
-                        </header>
-                        <div class="controls">
-                            <label class="checkbox inline"> 
-                                <input type="radio"  name="rutaIda" id='ruta1Ida' value="Ruta1">
-                                Ruta 1
-                            </label> 
-                            <label class="checkbox inline"> 
-                                <input type="radio"  name="rutaIda" id='ruta2Ida' value="Ruta2">
-                                Ruta 2
-                            </label>
-                            
-                        </div>
-                        <label>Parada:</label> 
-                        <select id='nombreParadaIda' name='paradaIda' class='span5 required'></select>
-                        </div>
-                    </div>
-                    <div class='span6 rutas'>
-                        <div class="control-group alert alert-info">
-                        <header>
-                            <h5>*Ruta Vuelta:</h5>
-                        </header>
-                        <div class="controls">
-                            <label class="checkbox inline"> 
-                                <input type="radio"  name="rutaVuelta" id='ruta1Vuelta' value="Ruta1">
-                                Ruta 1
-                            </label> 
-                            <label class="checkbox inline"> 
-                                <input type="radio"  name="rutaVuelta" id='ruta2Vuelta' value="Ruta2">
-                                Ruta 2
-                            </label>
-                            
-                        </div>
-                        <label>Parada:</label>
-                        <select id='nombreParadaVuelta' name='paradaVuelta' class='span5 required'></select>
-                        </div>
-                    </div>
+                   
                 <!-- Muestra el total de la inscripción segun lo que se ha contratado -->
                     <div class='span12'>
                     	<div class='alert alert-success'>

@@ -16,10 +16,11 @@ class Consulta {
 					'prematricula' => 99 
 					), 
 			'english' => array(
-					'1semana'=>'',
-					'2semana'=>'',
-					'3semana'=>'',
-					'4semana'=>'',
+					'1'=>219,
+					'2'=>434,
+					'3'=>619,
+					'4'=>750,
+					'bus'=>25,
 					'prematricula' => 99
 					)
 			);

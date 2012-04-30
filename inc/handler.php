@@ -57,14 +57,22 @@ if ( isset( $_POST['descuento'] ) ) {
 if ( !is_null( $sql ) ) {
 	$consulta = new Consulta('Mysql');
 	$consulta->consulta( $sql );
-	$precioBase = $consulta->precios[$campus]['base'];
-	$precioGuarderia = $consulta->precios[$campus]['guarderia'];
+	$precio = 0;
+	if ( isset( $_POST['semanasCampus']) > 0 ) { // Semanas elegidas
+			$precio = $consulta->precios[$campus][$_POST['semanasCampus']];
+	}
+	if ( isset( $_POST['servicioAutobus'] ) && $_POST['semanasCampus'] > 0 ) {
+		
+		if ( $_POST['servicioAutobus'] == 'Si') {
+			$precio += $consulta->precios[$campus]['bus']*$_POST['semanasCampus'];
+		}
+	}
 	/**
 	 * Se ha consultado el descuento
 	 */
 	if ( isset( $_POST['descuento'] ) ) {
 		$codigo = 0;
-		$precio = $precioBase;
+		
 		$resultados = $consulta->resultados();
 		if ( count( $resultados ) == 1 ) {
 			$precio -=  $resultados[0]['valor'];
@@ -73,11 +81,12 @@ if ( !is_null( $sql ) ) {
 		if ( strlen( $_POST['descuento'] ) == 0 ) { // no hemos especificado codigo
 			$codigo = 2;
 		} 
-		if ( isset( $_POST['guarderia'] ) ) {
-			if ( $_POST['guarderia'] ) {
-				$precio += $precioGuarderia;
-			}
-		}
+// 		if ( isset( $_POST['guarderia'] ) ) {
+// 			if ( $_POST['guarderia'] ) {
+// 				$precio += $precioGuarderia;
+// 			}
+// 		}
+		
 		$precio = number_format( round( $precio, 2 ), 2, ',', '.' )."&euro;";
 		$mensaje = json_encode( array('precio' => $precio, 'codigo' => $codigo ) );
 	}

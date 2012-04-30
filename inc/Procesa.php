@@ -3,6 +3,8 @@ require_once 'Consulta.php';
 class Procesa {
 	public $pathFiles = 'server/php/files/';
 	public $pathThum = 'server/php/thumbnails/';
+	private $_imgCampus = 'img/summer.png';
+	private $_titleCampus = 'English Camp';
 	private $_consulta = null;
 	private $_tmpName = null;
 	private $_type = null;
@@ -61,14 +63,15 @@ class Procesa {
 	public function datosFormateados( $dest='web', $datos, $urlPromo ) {
 		
 		//$bannedFields = array(':idInscripcion','')
-		$campus = "Football &amp English Camp 2012";
-		$paginaPago = "http://www.ensenalia.com/node/1086";
+		$campus = $this->_titleCampus." ".date('Y');
+		$paginaPago = "http://www.ensenalia.com/node/1196";
 		$html = "";
 		$print = "";
 		$pie = "<hr/>
 			<div><a href='http://www.ensenalia.com'>&copy;ensenalia.com - ".date('Y')."</a></div>";
 		if ( $dest == 'email' ) {
-			$cabezera = "<p><img src='http://www.ensenalia.com/camps/football/img/football.png' title='Football & English Camp 2012' /></p>";
+			$cabezera = "<p><img src='http://www.ensenalia.com/camps/football/".$this->_imgCampus."' 
+			title='".$campus."' /></p>";
 			$img ="<img src='http://www.ensenalia.com/camps/".$datos[':campus']."/foto.php?idInscripcion=".$datos[':idInscripcion']."'/>";
 		} else {
 			$cabezera = "";
@@ -115,9 +118,10 @@ class Procesa {
 		/**
 		 * Guarderia
 		 */
-		$html .= "<tr><td><strong>Guarderia:</strong></td>
-		<td>".$datos[':guarderia']."</td></tr>";
+		
 		if ( $datos[':guarderia'] == 'Si' ) {
+			$html .= "<tr><td><strong>Guarderia:</strong></td>
+			<td>".$datos[':guarderia']."</td></tr>";
 			$html .= "<tr><td><strong>Nombre hermano/a:</strong></td>
 			<td>".$datos[':nombreHermano']."</td></tr>";
 			$html .= "<tr><td><strong>Apellidos hermano/a:</strong></td>
@@ -144,8 +148,13 @@ class Procesa {
 		 * Calculo Importe a Pagar
 		 * 
 		 */
-		$precioBase = $this->_consulta->precios[$datos[':campus']]['base'];
-		$precioGuarderia = $this->_consulta->precios[$datos[':campus']]['guarderia'];
+		$semanasCampus = 0;
+		$semanasCampus += ( $datos[':semana1Campus'] == 'Si' ) ? 1: 0;
+		$semanasCampus += ( $datos[':semana2Campus'] == 'Si' ) ? 1: 0;
+		$semanasCampus += ( $datos[':semana3Campus'] == 'Si' ) ? 1: 0;
+		$semanasCampus += ( $datos[':semana4Campus'] == 'Si' ) ? 1: 0;
+		$precioBase = $this->_consulta->precios[$datos[':campus']][$semanasCampus];
+		$precioBus = $this->_consulta->precios[$datos[':campus']]['bus'];
 		$precioPrematricula = $this->_consulta->precios[$datos[':campus']]['prematricula'];
 		$precio = $precioBase;
 		/**
@@ -153,8 +162,8 @@ class Procesa {
 		 */
 		$valorCodigo = $this->_consulta->valorCupon( $datos[':codigoDescuento'], $datos[':campus'] );
 		$precio -=  $valorCodigo;
-		if ( $datos[':guarderia'] == 'Si' ) {
-			$precio += $precioGuarderia;
+		if ( $datos[':servicioAutobus'] == 'Si' ) {
+			$precio += ($precioBus * $semanasCampus);
 		}
 		$precioFinal = number_format( round( ($precio - $precioPrematricula), 2 ), 2, ',' ,'.' );
 		$html .= "</tbody>";
