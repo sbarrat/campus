@@ -1,6 +1,8 @@
 <?php
-require_once 'inc/Consulta.php';
- $consulta = new Consulta('Mysql');
+phpinfo();
+// require_once 'inc/Consulta.php';
+//  $consulta = new Consulta('Mysql');
+ 
 //  $sql = "DELETE FROM cuponescampus";
 //  $consulta->consulta( $sql );
  

@@ -1,0 +1,21 @@
+****** FORMULARIOS CAMPUS 1.0 ******
+Formularios Campus by Ruben Lacasa 
+is licensed under a Creative Commons Reconocimiento-NoComercial-SinObraDerivada 3.0 Unported License.
+git://github.com/sbarrat/campus.git
+
+Desarrollada por: Ruben Lacasa Mas <ruben@rubenlacasa.es>
+Blog: http://rubenlacasa.es
+Twitter: @sbarrat
+
+Desarrollada con:
+PHP Version 5.2.17
+Jquery 1.7.1
+Twitter Boostrap 2.0
+Modernizr 2.5.3
+HTML 5
+
+Esta aplicación esta pensada para servir de soporte para paginas web
+en las cuales se pondra información sobre un producto. Y se podra uno registrar
+en ese producto, en este caso campus de idiomas. Esta inscripción quedara almacenada
+en una base de datos local y a su vez seran enviados los datos a una base de datos
+remota y por correo electronico.

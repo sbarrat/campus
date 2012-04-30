@@ -269,6 +269,9 @@ if ( $class=='success'){
 	<div class='span12'>
         <footer>
             <p>&copy; Enseñalia 2012 - <a href='mailto:info@ensenalia.com'>info@ensenalia.com</a> - 902 636 096</p>
+        	<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+            <img alt="Licencia de Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png" /></a>
+            
         </footer>
     </div>
 </div>
