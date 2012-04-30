@@ -6,8 +6,9 @@
  */
 require_once 'Procesa.php';
 class Cliente {
-	public $campus = "Football and English Camp 2012";
-	public $urlCampus = "http://www.ensenalia.com/camps/football/";
+	public $campus = "English Camp";
+	public $urlCampus = "http://www.ensenalia.com/camps/english/";
+	public $imgCampus = "img/summer.png";
 	function enviaSoap( $vars ) {
 		$options = array(
 				'location' => 'http://query.ensenalia.com/soap/server.php',
@@ -39,13 +40,13 @@ class Cliente {
 		$headers  = 'MIME-Version: 1.0' . "\r\n";
 		$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
 		$headers .= 'Bcc: ruben@ensenalia.com' . "\r\n";
-		$headers .= 'Return-Path: ruben@ensenalia.com' . "\r\n";
+		$headers .= 'Return-Path: camps@ensenalia.com' . "\r\n";
 		// Additional headers
-		$headers .= 'From: '.$this->campus.' <camps@ensenalia.com>' . "\r\n";
+		$headers .= 'From: '.$this->campus.' '.date('Y').' <camps@ensenalia.com>' . "\r\n";
 		$procesa = new Procesa();
 		$body = $procesa->datosFormateados( 'email', $vars, $urlPromo );
 
-		if ( mail($mailDest,'Inscripción '. $this->campus , $body, $headers ) ) {
+		if ( mail($mailDest,'Inscripción '. $this->campus." ".date('Y') , $body, $headers ) ) {
 			return true;
 		} else {
 			return false;
@@ -61,8 +62,8 @@ class Cliente {
 		$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
 		//$headers .= 'Bcc: ' . $var[':amigos'] . "\r\n";
 		$headers .= 'Return-Path: camps@ensenalia.com' . "\r\n";
-		$subject = $var[':nombreParticipante']." ".$var[':apellidosParticipante']." te invita al ".$this->campus;
-		$body = "<p><img src='http://www.ensenalia.com/camps/football/img/football.png' title='Football & English Camp 2012' /></p>";
+		$subject = $var[':nombreParticipante']." ".$var[':apellidosParticipante']." te invita al ".$this->campus." ".date('Y');
+		$body = "<p><img src='http://www.ensenalia.com/camps/english/".$this->imgCampus."' title='".$this->campus." ".date('Y')."' /></p>";
 		$body .= "<div><h1>Invitación al ".$this->campus."</h1></div>";
 		$body .= "<p>".$var[':nombreParticipante']." ".$var[':apellidosParticipante']." 
 		te a invitado a que le acompañes al 

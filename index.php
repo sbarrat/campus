@@ -2,6 +2,7 @@
 require_once 'inc/Consulta.php';
 session_start();
 if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
+	var_dump( $_SERVER['HTTP_REFERER']);
 $_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
 } else {
 	$_SESSION['referer'] = NULL;
@@ -432,7 +433,7 @@ $campus = 'english';
                             </em>
                     </header>
                     <div class='well'>
-                    	<input type='hidden' name='campus' value='football' readonly />
+                    	<input type='hidden' name='campus' value='<?php echo $campus; ?>' readonly />
                         <label>*Nombre:</label> 
                         <input type="text" name='nombreParticipante' class="span4 required" placeholder="Nombre del Participante">
                         <label>*Apellidos:</label> 

@@ -39,7 +39,8 @@ class Procesa {
 			':apellidosPadre'=>'Apellidos Padre/Tutor', ':movilPadre'=>'Movil Padre/Tutor',
 			':emailPadre'=>'Correo Electronico Padre/Tutor', ':nombreMadre'=>'Nombre Madre/Tutora',
 			':apellidosMadre'=>'Apellidos Madre/Tutora', ':movilMadre'=>'Movil Madre/Tutora',
-			':emailMadre'=>'Correo Electronico Madre/Tutora'
+			':emailMadre'=>'Correo Electronico Madre/Tutora',':semana1Campus'=>'1ª Semana Campus',
+			':semana2Campus'=>'2ª Semana Campus', ':semana3Campus' => '3ª Semana Campus', ':semana4Campus'=>'4ª Semana Campus'
 			);
 	function __construct() {
 		$this->_consulta = new Consulta();
@@ -70,7 +71,7 @@ class Procesa {
 		$pie = "<hr/>
 			<div><a href='http://www.ensenalia.com'>&copy;ensenalia.com - ".date('Y')."</a></div>";
 		if ( $dest == 'email' ) {
-			$cabezera = "<p><img src='http://www.ensenalia.com/camps/football/".$this->_imgCampus."' 
+			$cabezera = "<p><img src='http://www.ensenalia.com/camps/".$datos[':campus']."/".$this->_imgCampus."' 
 			title='".$campus."' /></p>";
 			$img ="<img src='http://www.ensenalia.com/camps/".$datos[':campus']."/foto.php?idInscripcion=".$datos[':idInscripcion']."'/>";
 		} else {

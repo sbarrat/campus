@@ -1,7 +1,7 @@
 <?php
 require_once 'database.php';
 require_once 'databaseMysql.php';
-
+//pruebas 'http://ensenaliatv.wordpress.com/2012/04/30/pruebas/'
 class Consulta {
 	private $_handle;
 	private $_query;
@@ -27,7 +27,7 @@ class Consulta {
 	private $_urlsPromo = array(
 			'english' => array( 
 					'http://www.marianistas.net',
-					'http://query.ensenalia.com'
+					'http://marianistas.net'
 					),
 			'football' => array('http://query.ensenalia.com'),
 			'padel' => array('http://query.ensenalia.com')
