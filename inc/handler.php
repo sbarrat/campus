@@ -67,7 +67,7 @@ if ( !is_null( $sql ) ) {
 		$precio = $precioBase;
 		$resultados = $consulta->resultados();
 		if ( count( $resultados ) == 1 ) {
-			$precio -=  $precioBase * ( $resultados[0]['valor'] / 100 );
+			$precio -=  $resultados[0]['valor'];
 			$codigo = 1;
 		}
 		if ( strlen( $_POST['descuento'] ) == 0 ) { // no hemos especificado codigo

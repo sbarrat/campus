@@ -152,7 +152,7 @@ class Procesa {
 		 * Chequear el codigo de promocion
 		 */
 		$valorCodigo = $this->_consulta->valorCupon( $datos[':codigoDescuento'], $datos[':campus'] );
-		$precio -=  $precio * ( $valorCodigo / 100 );
+		$precio -=  $valorCodigo;
 		if ( $datos[':guarderia'] == 'Si' ) {
 			$precio += $precioGuarderia;
 		}

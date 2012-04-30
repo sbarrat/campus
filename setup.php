@@ -1,6 +1,15 @@
 <?php
 require_once 'inc/Consulta.php';
  $consulta = new Consulta('Mysql');
+//  $sql = "DELETE FROM cuponescampus";
+//  $consulta->consulta( $sql );
+ 
+//  $sql = "INSERT INTO cuponescampus (cupon, valor, descripcion, campus, total ) 
+// VALUES ('SANGREGORIO', '20', 'Cupon especial para los pertenecientes al club San gregorio', 'football', '35')";
+//  $consulta->consulta( $sql );
+//  $sql = "SELECT * from cuponescampus";
+//  $consulta->consulta( $sql );
+//  var_dump( $consulta->resultados() );
 //  $sql = "ALTER TABLE `inscripcionesEnglish` CHANGE `cupon` `codigoDescuento` 
 //  VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL ";
 //  $consulta->consulta( $sql );
