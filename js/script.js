@@ -103,11 +103,10 @@ var inicializaMapa = function() {
 	google.maps.event.addListener( marker,'click',
 			function() {
 				latlng = marker.getPosition();
-				infoWindow
-					.setContent('<h5>Campus Football and English 2012 </h5>'
-							+ 'Calle de Rigoberta Menchú - 50830 - Villanueva de Gállego')
-					.setOptions({ 'maxWidth' : 100 })
-					.open(map, marker);
+				infoWindow.setContent('<h5>Campus Football and English 2012 </h5>'
+							+ 'Calle de Rigoberta Menchú - 50830 - Villanueva de Gállego');
+				infoWindow.setOptions({ 'maxWidth' : 100 });
+				infoWindow.open(map, marker);
 			});
 	google.maps.event.addListener(map, 'click',function() { infoWindow.close(); });
 };

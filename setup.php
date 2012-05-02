@@ -1,8 +1,25 @@
 <?php
-phpinfo();
-// require_once 'inc/Consulta.php';
-//  $consulta = new Consulta('Mysql');
- 
+// phpinfo();
+require_once 'inc/Consulta.php';
+$consulta = new Consulta('Mysql');
+// $sql = "INSERT INTO `cuponescampus` (
+// `id` ,
+// `cupon` ,
+// `valor` ,
+// `descripcion` ,
+// `campus` ,
+// `total` ,
+// `fecha` ,
+// `creador` ,
+// `destinatarios`
+// )
+// VALUES (
+// NULL , 'SANGREGORIO', '0', 'Cupon especial para los pertenecientes al club San gregorio', 'football', '35', NULL , '', ''
+// )";
+// $sql = "UPDATE cuponescampus set valor=0 where cupon like 'SANGREGORIO'";
+// $consulta->consulta($sql);
+// $sql = "SELECT * from cuponescampus";
+// $consulta->consulta($sql); 
 //  $sql = "DELETE FROM cuponescampus";
 //  $consulta->consulta( $sql );
  
@@ -52,10 +69,7 @@ phpinfo();
 //  $sql = "Select * from inscripcionesEnglish";
 
  
-//  $sql = "INSERT INTO `cuponescampus` 
-//  (`id`, `cupon`, `valor`, `descripcion`, `campus`, `total`, `fecha`) 
-//  VALUES (NULL, \'SANGREGORIO\', \'30\', 
-//  \'Cupon especial para los pertenecientes al club San gregorio\', \'football\', \'30\', NULL);";
+ 
 //  $consulta->consulta($sql);
 //  $sql = "CREATE TABLE IF NOT EXISTS `cuponescampus` (
 //   `id` int(11) NOT NULL AUTO_INCREMENT,
