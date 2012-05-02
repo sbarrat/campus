@@ -16,13 +16,13 @@ $consulta = new Consulta('Mysql');
  * @var author
  */ 
 $copyright = "&copy;www.ensenalia.com::".date('Y');
-$title = 'English Camp '.date('Y');
-$description = 'English Camp '.date('Y').' - Campamento de Inglés Urbano en Zaragoza';
+$title = 'Padel and English '.date('Y');
+$description = 'Padel and English '.date('Y').' - Campamento de Inglés Urbano en Zaragoza';
 $author = "Ruben Lacasa <ruben@rubenlacasa.es>";
-$imgForm = 'img/summer.png';
+$imgForm = 'img/padel.png';
 $fechasCampus = 'Del 25 de Junio al 20 de Julio';
 $edadCampus = 'Dirigido a Niños/as de 6 a 12 años';
-$campus = 'english';
+$campus = 'padel';
 ?>
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
