@@ -1,5 +1,8 @@
 <?php
-session_start();
+$sid = session_id();
+if ( is_null($sid)) {
+	session_start();
+}
 require_once 'Consulta.php';
 class Procesa {
 	public $pathFiles = 'server/php/files/';

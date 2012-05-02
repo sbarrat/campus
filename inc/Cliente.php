@@ -39,7 +39,7 @@ class Cliente {
 		// To send HTML mail, the Content-type header must be set
 		$headers  = 'MIME-Version: 1.0' . "\r\n";
 		$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-		$headers .= 'Bcc: ruben@ensenalia.com' . "\r\n";
+		$headers .= 'Bcc: camps@ensenalia.com' . "\r\n";
 		$headers .= 'Return-Path: camps@ensenalia.com' . "\r\n";
 		// Additional headers
 		$headers .= 'From: '.$this->campus.' '.date('Y').' <camps@ensenalia.com>' . "\r\n";
