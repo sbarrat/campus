@@ -2,8 +2,7 @@
 require_once 'inc/Consulta.php';
 session_start();
 if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
-	var_dump( $_SERVER['HTTP_REFERER']);
-$_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
+	$_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
 } else {
 	$_SESSION['referer'] = NULL;
 }

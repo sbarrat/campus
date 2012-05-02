@@ -25,7 +25,8 @@ class Consulta {
 					)
 			);
 	private $_urlsPromo = array(
-			'english' => array( 
+			'english' => array(
+					'http://www.marianistas.net/', 
 					'http://www.marianistas.net',
 					'http://marianistas.net'
 					),
