@@ -103,11 +103,10 @@ var inicializaMapa = function() {
 	google.maps.event.addListener( marker,'click',
 			function() {
 				latlng = marker.getPosition();
-				infoWindow
-					.setContent('<h5>English Camp 2012 - Colegio Santa María del Pilar ( Marianistas)</h5>'
-							+ 'Paseo Reyes de Aragón 5 - 50012 - Zaragoza')
-					.setOptions({ 'maxWidth' : 100 })
-					.open(map, marker);
+				infoWindow.setContent('<h5>English Camp 2012 - Colegio Santa María del Pilar ( Marianistas)</h5>'
+							+ 'Paseo Reyes de Aragón 5 - 50012 - Zaragoza');
+				infoWindow.setOptions({ 'maxWidth' : 100 });
+				infoWindow.open(map, marker);
 			});
 	google.maps.event.addListener(map, 'click',function() { infoWindow.close(); });
 };
