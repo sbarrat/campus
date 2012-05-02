@@ -22,13 +22,22 @@ class Consulta {
 					'4'=>750,
 					'bus'=>25,
 					'prematricula' => 99
+					),
+			'urlPromo' => array(
+					'1' => 195,
+					'2' => 390,
+					'3' => 557,
+					'4' => 675,
+					'bus' => 25,
+					'prematricula' => 0
 					)
 			);
 	private $_urlsPromo = array(
 			'english' => array(
 					'http://www.marianistas.net/', 
 					'http://www.marianistas.net',
-					'http://marianistas.net'
+					'http://marianistas.net',
+					'http://query.ensenalia.com'
 					),
 			'football' => array('http://query.ensenalia.com'),
 			'padel' => array('http://query.ensenalia.com')

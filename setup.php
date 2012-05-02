@@ -1,11 +1,20 @@
 <?php
-phpinfo();
+echo "<pre>";
+
+echo $_SERVER['REMOTE_ADDR'];
+echo $_SERVER['REMOTE_HOST'];
+echo "</pre>";
 // require_once 'inc/Consulta.php';
 //  $consulta = new Consulta('Mysql');
  
-//  $sql = "DELETE FROM cuponescampus";
+//  $sql = "ALTER TABLE `inscripcionesEnglish` ADD `informado` VARCHAR( 255 ) 
+//  CHARACTER SET utf8 COLLATE utf8_general_ci NULL AFTER `conocido` ";
 //  $consulta->consulta( $sql );
- 
+//  $sql = "DESCRIBE inscripcionesEnglish";
+//  $consulta->consulta( $sql );
+//  echo "<pre>";
+//  var_dump( $consulta->resultados());
+//  echo "</pre>";
 //  $sql = "INSERT INTO cuponescampus (cupon, valor, descripcion, campus, total ) 
 // VALUES ('SANGREGORIO', '20', 'Cupon especial para los pertenecientes al club San gregorio', 'football', '35')";
 //  $consulta->consulta( $sql );

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'Consulta.php';
 class Procesa {
 	public $pathFiles = 'server/php/files/';
@@ -64,6 +65,11 @@ class Procesa {
 	public function datosFormateados( $dest='web', $datos, $urlPromo ) {
 		
 		//$bannedFields = array(':idInscripcion','')
+		if ( isset( $_SESSION['precios'] ) ) {
+			$precios = $_SESSION['precios'];
+		} else {
+			$precios = $datos[':campus'];
+		}
 		$campus = $this->_titleCampus." ".date('Y');
 		$paginaPago = "http://www.ensenalia.com/node/1196";
 		$html = "";
@@ -154,9 +160,9 @@ class Procesa {
 		$semanasCampus += ( $datos[':semana2Campus'] == 'Si' ) ? 1: 0;
 		$semanasCampus += ( $datos[':semana3Campus'] == 'Si' ) ? 1: 0;
 		$semanasCampus += ( $datos[':semana4Campus'] == 'Si' ) ? 1: 0;
-		$precioBase = $this->_consulta->precios[$datos[':campus']][$semanasCampus];
-		$precioBus = $this->_consulta->precios[$datos[':campus']]['bus'];
-		$precioPrematricula = $this->_consulta->precios[$datos[':campus']]['prematricula'];
+		$precioBase = $this->_consulta->precios[$precios][$semanasCampus];
+		$precioBus = $this->_consulta->precios[$precios]['bus'];
+		$precioPrematricula = $this->_consulta->precios[$precios]['prematricula'];
 		$precio = $precioBase;
 		/**
 		 * Chequear el codigo de promocion
@@ -197,7 +203,8 @@ class Procesa {
 			";
 		} else {
 			$html .="<div class='alert alert-success'>
-			La Inscripción al campus se ha realizado correctamente
+			La Inscripción al campus se ha realizado correctamente. El Colegio Marianistas gestionara
+			el cobro del Campus mediante domiciliación bancaria.
 			</div>";
 		}
 		$html .="</div>

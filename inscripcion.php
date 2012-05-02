@@ -145,6 +145,7 @@ if ( isset( $_POST['condicionesAceptadas'] ) && $_POST['condicionesAceptadas'] =
 		 * Mandamos el email. Deberiamos mandarlo tanto al cliente como notificacion propia
 		 * todo habilitar en version final
 		 */
+		
 		$enviadoEmail = $cliente->enviaMail( $datosProcesados, $urlPromo );
 		if ( $enviadoEmail ) {
 			$mensaje .= ' - Se ha enviado un email con los datos de la inscripcion';

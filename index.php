@@ -7,6 +7,7 @@ if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
 	$_SESSION['referer'] = NULL;
 }
 $consulta = new Consulta('Mysql');
+
 /**
  * Datos basicos de la pagina
  * @var copyright
@@ -22,6 +23,18 @@ $imgForm = 'img/summer.png';
 $fechasCampus = 'Del 25 de Junio al 20 de Julio';
 $edadCampus = 'Dirigido a Niños/as de 6 a 12 años';
 $campus = 'english';
+
+if ( $consulta->urlPromo( $campus, $_SESSION['referer'] ) ) {
+	$_SESSION['precios'] = 'urlPromo';
+	$precios = $consulta->precios['urlPromo'];
+	$colegio = 'Marianistas';
+	$logoPromo = "<img src='img/marianistas.png' alt='Colegio Nuestra Señora del Pilar - Marianistas' />";
+} else {
+	$_SESSION['precios'] = $campus;
+	$precios = $consulta->precios[$campus];
+	$logoPromo = "";
+	$colegio = '';
+}
 ?>
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -97,10 +110,12 @@ $campus = 'english';
                 </div>
            <!-- Fin aviso -->     
                 <img src='<?php echo $imgForm; ?>' title='<?php echo $title; ?>' />
+                <?php echo $logoPromo; ?>
                 <hgroup>
                     <h3><?php echo $fechasCampus; ?></h3>
                     <h3><?php echo $edadCampus; ?></h3>
                 </hgroup>
+               
             </header>
             <div class='well'>
             <!-- TEXTO INTRODUCTORIO -->
@@ -222,7 +237,7 @@ $campus = 'english';
                     </div>
                     
                 </div>
-                <!-- PRECIO -->
+                <!-- PRECIOS -->
                 <div class='span12'>
                 	<header>
                 		<h3>Precio</h3>
@@ -245,19 +260,19 @@ $campus = 'english';
                             <tbody>
                              <tr>
                               <td>1 Semana</td>
-                              <td>219€</td>
+                              <td><?php echo $precios['1']; ?>€</td>
                              </tr>
                              <tr>
                               <td>2 Semanas</td>
-                              <td>434€</td>
+                              <td><?php echo $precios['2']; ?>€</td>
                              </tr>
                              <tr>
                               <td>3 Semanas</td>
-                              <td>619€</td>
+                              <td><?php echo $precios['3']; ?>€</td>
                              </tr>
                              <tr>
                               <td>4 Semanas</td>
-                              <td>750€</td>
+                              <td><?php echo $precios['4']; ?>€</td>
                              </tr>
                             </tbody>
                             <tfoot>
@@ -465,7 +480,7 @@ $campus = 'english';
                         <label>*Correo Electronico:</label> 
                         <input type="text" name='emailParticipante' class="span4 required email" placeholder="email"> 
                         <label>*Colegio:</label> 
-                        <input type="text" name='colegioParticipante' class="span4 required" placeholder="Colegio del Participante"> 
+                        <input type="text" name='colegioParticipante' class="span4 required" placeholder="Colegio del Participante" value="<?php echo $colegio;?>"> 
                         <label>*Curso Escolar:</label> 
                         <select name='cursoParticipante' class='required'>
                         	<option value='0'>- Seleccionar Curso -</option>
@@ -792,6 +807,26 @@ $campus = 'english';
                 			<option value='Aragonia'>Enseñalia Aragonia</option>
                 			<option value='Gran Via'>Enseñalia Gran Via</option>
                 			<option value='Rosales'>Enseñalia Rosales</option>
+                			<option value='Marianistas'>Colegio marianistas</option>
+                			<option value='Publicidad'>Publicidad</option>
+                			<option value='Buscador'>Buscador Web</option>
+                			<option value='Amigos'>Amigos</option>
+                			<option value='Ya nos conocia'>Ya nos conocia</option>
+                			<option value='Otros'>Otros</option> 
+                		</select>
+                	</div>
+                </div>
+                <div class='span12'>
+                	<header>
+                		<h3>¿Donde se ha informado?</h3>
+                	</header>
+                	<div class='well'>
+                		<select id='informado' name='informado'>
+                			<option value='0'> - Seleccione una Opcion -</option>
+                			<option value='Aragonia'>Enseñalia Aragonia</option>
+                			<option value='Gran Via'>Enseñalia Gran Via</option>
+                			<option value='Rosales'>Enseñalia Rosales</option>
+                			<option value='Marianistas'>Colegio marianistas</option>
                 			<option value='Publicidad'>Publicidad</option>
                 			<option value='Buscador'>Buscador Web</option>
                 			<option value='Amigos'>Amigos</option>

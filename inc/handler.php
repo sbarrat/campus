@@ -14,8 +14,14 @@
  * @link     http://www.ensenalia.com/camps/english
  * @version  1.0 Estable
  */
+session_start();
 require_once 'Consulta.php';
 $campus = 'english';
+if ( isset($_SESSION['precios'] ) ) {
+	$precios = $_SESSION['precios'];
+} else {
+	$precios = $campus;
+}
 $sql = null;
 $rutaIda = false;
 $rutaVuelta = false;
@@ -59,12 +65,12 @@ if ( !is_null( $sql ) ) {
 	$consulta->consulta( $sql );
 	$precio = 0;
 	if ( isset( $_POST['semanasCampus']) > 0 ) { // Semanas elegidas
-			$precio = $consulta->precios[$campus][$_POST['semanasCampus']];
+			$precio = $consulta->precios[$precios][$_POST['semanasCampus']];
 	}
 	if ( isset( $_POST['servicioAutobus'] ) && $_POST['semanasCampus'] > 0 ) {
 		
 		if ( $_POST['servicioAutobus'] == 'Si') {
-			$precio += $consulta->precios[$campus]['bus']*$_POST['semanasCampus'];
+			$precio += $consulta->precios[$precios]['bus']*$_POST['semanasCampus'];
 		}
 	}
 	/**
