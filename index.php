@@ -28,12 +28,28 @@ if ( $consulta->urlPromo( $campus, $_SESSION['referer'] ) ) {
 	$_SESSION['precios'] = 'urlPromo';
 	$precios = $consulta->precios['urlPromo'];
 	$colegio = 'Marianistas';
-	$logoPromo = "<img src='img/marianistas.png' alt='Colegio Nuestra Señora del Pilar - Marianistas' />";
+	$logoPromo = "
+	<div class='span12'>
+		<div class='span5'>
+			<img src='img/marianistas.png' alt='Colegio Nuestra Señora del Pilar - Marianistas' />
+		</div>
+		<div class='span5'>
+			<div class='alert alert-info'>
+				<h2>Inscripción Exclusiva para alumnos de Marianistas.</h2> 
+				<p><em>Si no es Alumno de Marianistas inscribase haciendo clic 
+				<a href='http://www.ensenalia.com/camps/english' target='_blank'>
+					<strong>AQUI</strong>
+				</a></em></p>
+			</div>
+		</div>
+	</div>";
+	$condicionAmigos = "* Las direcciones de los amigos no pueden ser del colegio Marianistas";
 } else {
 	$_SESSION['precios'] = $campus;
 	$precios = $consulta->precios[$campus];
 	$logoPromo = "";
 	$colegio = '';
+	$condicionAmigos = '';
 }
 ?>
 <!doctype html>
@@ -780,6 +796,7 @@ if ( $consulta->urlPromo( $campus, $_SESSION['referer'] ) ) {
                 		</em></p>
                 		<p><em>
                 			* Los descuentos no son acumulables
+                			<?php echo "<br/>".$condicionAmigos; ?>
                 		</em></p>
                 	</header>
                 	<div id='emailsAmigos' class='well'>
