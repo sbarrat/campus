@@ -37,6 +37,7 @@ class Consulta {
 					'http://www.marianistas.net/', 
 					'http://www.marianistas.net',
 					'http://marianistas.net',
+					'http://marianistas.net/',
 					'http://query.ensenalia.com/'
 					),
 			'football' => array('http://query.ensenalia.com'),

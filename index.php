@@ -1,6 +1,7 @@
 <?php
 require_once 'inc/Consulta.php';
 session_start();
+
 if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
 	$_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
 } else {
@@ -131,7 +132,6 @@ if ( $consulta->urlPromo( $campus, $_SESSION['referer'] ) ) {
                     <h3><?php echo $fechasCampus; ?></h3>
                     <h3><?php echo $edadCampus; ?></h3>
                 </hgroup>
-               
             </header>
             <div class='well'>
             <!-- TEXTO INTRODUCTORIO -->

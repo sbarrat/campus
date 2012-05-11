@@ -25,7 +25,8 @@ class Procesa {
 			'image/jpg'  => array('create' => 'imagecreatefromjpeg', 'output' => 'imagejpeg' ),
 			'image/png'  => array('create' => 'imagecreatefrompng',  'output' => 'imagepng'  ),
 			'image/gif'  => array('create' => 'imagecreatefromgif',  'output' => 'imagegif'  ),
-			'image/bmp'  => array('create' => 'imagecreatefromwbmp', 'output' => 'imagewbmp' )
+			'image/bmp'  => array('create' => 'imagecreatefromwbmp', 'output' => 'imagewbmp' ),
+			'image/vnd.wap.wbmp'  => array('create' => 'imagecreatefromwbmp', 'output' => 'imagewbmp' )
 			);
 	public $_campos = array(
 			':nombreParticipante'=>'Nombre', ':apellidosParticipante'=>'Apellidos',
@@ -50,6 +51,7 @@ class Procesa {
 		$this->_consulta = new Consulta();
 	}
 	function procesaFoto( $tmpName, $type ) {
+		//TODO: Comprobar el tipo de archivo a ver si es compatible, si no no procesarlo
 		$this->_type = 	$type;
 		$this->_tmpName = $tmpName;
 		$this->_imageOrig = $this->_imgFunc[$this->_type]['create']( $this->_tmpName );
