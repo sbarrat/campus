@@ -1,8 +1,27 @@
 <?php 
 require_once 'inc/Consulta.php';
 session_start();
-$_SESSION['referer'] = $_SERVER['HTTP_REFERER']; 
+if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
+$_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
+} else {
+	$_SESSION['referer'] = NULL;
+} 
 $consulta = new Consulta('Mysql');
+/**
+ * Datos basicos de la pagina
+ * @var string $copyright
+ * @var string $title
+ * @var string $descripcion
+ * @var string $author
+ */
+$copyright = "&copy;www.ensenalia.com::".date('Y');
+$title = 'Football & English Camp '.date('Y');
+$description = "Football & English Camp ".date('Y')." - Futbol e Inglés en tu Ciudad";
+$author = "Ruben Lacasa <ruben@ensenalia.com>";
+$imgForm = 'img/football.png';
+$fechasCampus = "Del 2 al 13 de Julio";
+$edadCampus = "Dirigido a niños y niñas de 7 a 14 años";
+$campus = 'football';
 ?>
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -14,10 +33,9 @@ $consulta = new Consulta('Mysql');
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Football &amp; English Camp 2012 - &copy;www.ensenalia.com 2012</title>
-<meta name="description"
- content="Football & English Camp 2012 Campamento de Futból e Inglés para niños">
-<meta name="author" content="Ruben Lacasa">
+<title><?php echo $title." ".$copyright; ?></title>
+<meta name="description" content="<?php echo $description;?>">
+<meta name="author" content="<?php echo $author; ?>">
 <meta name="viewport" content="width=device-width">
 <!-- Estilos CSS Genericos -->
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
@@ -41,7 +59,7 @@ $consulta = new Consulta('Mysql');
     <a class="btn btn-navbar" data-toggle="collapse"
      data-target=".nav-collapse"> <span class="icon-bar"></span> 
      <span class="icon-bar"></span> <span class="icon-bar"></span>
-    </a> <a class="brand" href="#">Football &amp; English Camp 2012</a>
+    </a> <a class="brand" href="#"><?php echo $title;?></a>
     <div class="nav-collapse">
      <ul class="nav">
       <li class="active"><a href="#home">Inicio</a></li>
@@ -74,13 +92,13 @@ $consulta = new Consulta('Mysql');
             <header class='page-header'>
             <!-- Quitar en version final -->
                 <div class='alert alert-success'>
-                <p>ABIERTO PLAZO INSCRIPCIÓN FOOTBALL &amp; ENGLISH CAMP 2012</p>
+                <p>ABIERTO PLAZO INSCRIPCIÓN <?php echo strtoupper( $title );?></p>
                 </div>
            <!-- Fin aviso -->     
-                <img src='img/football.png' title='Football & English Camp 2012' />
+                <img src='<?php echo $imgForm; ?>' title='<?php echo $title; ?>' />
                 <hgroup>
-                    <h3>Del 2 al 13 de Julio en Villanueva de Gállego</h3>
-                    <h3>De 7 a 14 años</h3>
+                    <h3><?php echo $fechasCampus; ?></h3>
+                    <h3><?php echo $edadCampus; ?></h3>
                 </hgroup>
             </header>
             <div class='well'>
@@ -498,7 +516,7 @@ $consulta = new Consulta('Mysql');
                             </em>
                     </header>
                     <div class='well'>
-                    	<input type='hidden' name='campus' value='football' readonly />
+                    	<input type='hidden' name='campus' value='<?php echo $campus; ?>' readonly />
                         <label>*Nombre:</label> 
                         <input type="text" name='nombreParticipante' class="span4 required" placeholder="Nombre del Participante">
                         <label>*Apellidos:</label> 
@@ -915,10 +933,26 @@ $consulta = new Consulta('Mysql');
                 			<option value='Otros'>Otros</option> 
                 		</select>
                 	</div>
+                </div>
+                <div class='span12'>
+                	<header>
+                		<h3>¿Donde se ha informado?</h3>
+                	</header>
+                	<div class='well'>
+                		<select id='informado' name='informado'>
+                			<option value='0'> - Seleccione una Opcion -</option>
+                			<option value='Aragonia'>Enseñalia Aragonia</option>
+                			<option value='Gran Via'>Enseñalia Gran Via</option>
+                			<option value='Rosales'>Enseñalia Rosales</option>
+                			<option value='Publicidad'>Publicidad</option>
+                			<option value='Buscador'>Buscador Web</option>
+                			<option value='Amigos'>Amigos</option>
+                		</select>
+                	</div>
                 </div>    
                 <div class='span12'>
                     <header>
-                        <h3>Condiciones Generales del Football &amp; English Camp 2012</h3>
+                        <h3>Condiciones Generales del <?php echo $title; ?></h3>
                         <p><em>Lea con detenimiento las condiciones del campus</em></p>
                     </header>
                     <div class='well'>
@@ -983,7 +1017,7 @@ $consulta = new Consulta('Mysql');
                         <label class="checkbox inline"> 
                             <input type="checkbox" id="condiciones" name="condicionesAceptadas" value="Si" class='required'>
                             <strong>* Haciendo clic en esta casilla manifiesta que ha leido y acepta
-                            las condiciones del Football &amp; English Camp 2012</strong><br/>
+                            las condiciones del <?php echo $title; ?></strong><br/>
                             <strong>* Es importante que revise los campos marcados con * para comprobar que esta todo correcto</strong>
                         </label> 
                     </div>

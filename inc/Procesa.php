@@ -19,7 +19,8 @@ class Procesa {
 			'image/jpg'  => array('create' => 'imagecreatefromjpeg', 'output' => 'imagejpeg' ),
 			'image/png'  => array('create' => 'imagecreatefrompng',  'output' => 'imagepng'  ),
 			'image/gif'  => array('create' => 'imagecreatefromgif',  'output' => 'imagegif'  ),
-			'image/bmp'  => array('create' => 'imagecreatefromwbmp', 'output' => 'imagewbmp' )
+			'image/bmp'  => array('create' => 'imagecreatefromwbmp', 'output' => 'imagewbmp' ),
+			'image/vnd.wap.wbmp'  => array('create' => 'imagecreatefromwbmp', 'output' => 'imagewbmp' )
 			);
 	public $_campos = array(
 			':nombreParticipante'=>'Nombre', ':apellidosParticipante'=>'Apellidos',
