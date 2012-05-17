@@ -38,7 +38,7 @@ class Procesa {
 			':apellidosPadre'=>'Apellidos Padre/Tutor', ':movilPadre'=>'Movil Padre/Tutor',
 			':emailPadre'=>'Correo Electronico Padre/Tutor', ':nombreMadre'=>'Nombre Madre/Tutora',
 			':apellidosMadre'=>'Apellidos Madre/Tutora', ':movilMadre'=>'Movil Madre/Tutora',
-			':emailMadre'=>'Correo Electronico Madre/Tutora'
+			':emailMadre'=>'Correo Electronico Madre/Tutora', ':nombreCamiseta' =>'Nombre en la camiseta'
 			);
 	function __construct() {
 		$this->_consulta = new Consulta();

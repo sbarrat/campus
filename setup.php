@@ -2,6 +2,11 @@
 // phpinfo();
 require_once 'inc/Consulta.php';
 $consulta = new Consulta('Mysql');
+// $sql = "ALTER TABLE  `inscripcionesEnglish` ADD  `nombreCamiseta` VARCHAR( 255 )
+// 		CHARACTER SET utf8 COLLATE utf8_general_ci NULL";
+// $consulta->consulta($sql);
+// $sql = "DESCRIBE inscripcionesEnglish";
+// $consulta->consulta($sql);
 // $sql = "INSERT INTO `cuponescampus` (
 // `id` ,
 // `cupon` ,

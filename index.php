@@ -807,12 +807,15 @@ $campus = 'football';
                     	<header>
                     	<h3>Equipación</h3>
                     	<p>
-                    		<em>*Seleccione la talla de la equipación del participante</em>
+                    		<em>*Escriba el nombre que aparecera en la camiseta y 
+                    		la talla de la equipación del participante y el nombre en la camiseta</em>
                     	</p>
                     	</header>
                     </div>
                     <div class='span12'>
-                    	<div class='alert alert-info'>		
+                    	<div class='alert alert-info'>
+                    	    <label>Nombre en la camiseta:</label>
+                    		<input type='text' name='nombreCamiseta' class='mensaje' title='Nombre en la camiseta' placeholder='Nombre en la camiseta' />		
                     		<select id='talla' name='talla'>
                     			<option value='0'>-- Seleccione la Talla --</option>
                     			<optgroup label="Tallas">
@@ -830,7 +833,11 @@ $campus = 'football';
                     			<option value='3XL'>3XL</option>
                     			</optgroup>
                     		</select>
-                    		<input id='tallas' type='button' class='btn btn-info' value='Ver guia de Tallas'>
+                    		<a id='tallas' class="btn btn-info" data-toggle="collapse"
+                        	data-target="#guiaTallas">Ver guia de tallas</a>
+                    		<div id='guiaTallas' class='collapse on'>
+                    			<img src="img/tallas.png" alt="tallas" width="640px"/>
+                    		</div>
                     	</div>
                     </div>
                     <!-- Seccion de la seleccion de rutas de autobus -->
@@ -957,6 +964,13 @@ $campus = 'football';
                     </header>
                     <div class='well'>
                         <div class='help-block'>
+                        	<h4>Normas de comportamiento campus football &amp; english</h4>
+							<p><strong>Traer obligatoriamente toda la equitación entregada 
+							(tanto la deportiva como la que se usará en periodo de clases de inglés, piscina y comidas).</strong></p>
+							<p><strong>Es necesario el uso de botas con tacos de goma.</strong>
+							<p><strong>Respetar en todo momento a los monitores tanto del campus como del autobús, 
+							compañeros y profesores.</strong></p>
+                            
                             <h4>Derecho de admisión</h4>
                             <p>Reservado el derecho de admisión y de expulsión del
                              campus si la organización lo considera oportuno.</p>
@@ -968,6 +982,7 @@ $campus = 'football';
                              que nos referimos será revocable en cualquier momento por el
                              consumidor, pero habrán de indemnizarse, en su caso, los daños
                              y perjuicios causados a Enseñalia.</p>
+                            
                             <h4>Protección de datos de carácter personal</h4>
                             <p>
                              En cumplimiento de lo dispuesto en la Ley Orgánica 15/1999, de
@@ -1003,6 +1018,20 @@ $campus = 'football';
                              Asimismo, y para el estudio de estos casos, deberá aportarse
                              toda la documentación que el médico estime oportuna para el
                              buen criterio del mismo.</p>
+                             
+                             <h4>Otras opciones:</h4>
+							<p>Todo participante que no cumpla las normas de la escuela, o moleste a la 
+							organización u a otros alumnos con un comportamiento indisciplinado, será reenviado 
+							a su domicilio, corriendo sus padres con los gastos del traslado. 
+							En este caso, la decisión del director del campamento de verano es inapelable. 
+							Igualmente, el cliente responderá de los daños causados en el material o 
+							instalaciones. Cualquier enfermedad, ya sea infecciosa o no, 
+							deberá comunicarse al campamento con antelación suficiente para que 
+							esta pueda examinar el caso, reservándose en cualquier caso el 
+							derecho de admisión al programa, si considera que la estancia del participante 
+							pueda suponer un riesgo para el resto de los participantes. 
+							Asimismo, y para el estudio de estos casos, deberá aportarse toda la 
+							documentación que el médico estime oportuna para el buen criterio del mismo.</p>
                             <h4>Perdida de Material u Objetos del Participante</h4>
                             <p>LA DIRECCIÓN DEL CAMPAMENTO NO SE HACE RESPONSABLE DE
                              LAS PÉRDIDAS DE OBJETOS QUE LLEVEN LOS NIÑOS (CÁMARAS DE

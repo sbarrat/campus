@@ -174,13 +174,13 @@ $(".verRuta").click(function(){
 /**
  * Muestra el dialogo de las tallas
  */
-$('#tallas').click(function(){
-		$('#dialog').html('<img src="img/tallas.png" alt="tallas" width="640px"/>');
-		$('#dialog').dialog({
-			title: 'Guia de Tallas',
-			minWidth: 640
-		});
-});
+//$('#tallas').click(function(){
+//		$('#dialog').html('<img src="img/tallas.png" alt="tallas" width="640px"/>');
+//		$('#dialog').dialog({
+//			title: 'Guia de Tallas',
+//			minWidth: 640
+//		});
+//});
 
 /**
  * Muestra el dialogo del recorte y seleccion de fotografia
